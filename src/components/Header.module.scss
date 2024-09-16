@@ -1,0 +1,45 @@
+@import '../App.scss'; // Importér dine variabler her
+
+.header {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.backgroundTop {
+  background-color: $RAISINBLACK; // Farven fra app.scss
+  height: 100px;
+  width: 100%;
+
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 20px;
+    background: inherit;
+    clip-path: polygon(0 100%, 50% 80%, 100% 100%, 100% 100%, 0 100%);
+  }
+}
+
+.backgroundBottom {
+  background-color: #fff;
+  height: 37px;
+  width: 100%;
+  position: relative;
+}
+
+.logoLink {
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  margin-top: 0.5rem; 
+  display: block;
+}
+
+.logo {
+  width: 269px;
+  height: 105px;
+}

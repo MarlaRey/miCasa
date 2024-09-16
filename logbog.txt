@@ -1,0 +1,9 @@
+Svendeprøve dagbog.
+
+Det er mandag og jeg har været klar til at komme i gang længe.
+opsætning af database går k.
+ jeg er tilsyneladende lidt ivrig og får hurtigt rodet rundt fordi jeg gerne vil have alt på plads med generelle funktioner lige fra start. Ved 11 tiden indser jeg at jeg har lavet noget værre od, som jeg i længden vil blive ked af at arbejde videre med. men undervejs i min famlen opdager jeg da, at der ér hul igennem til supabase. så er jeg rolig på den front.
+
+ Jeg bliver klar over jeg må bryde opgaven ned og tage den bid for bid. jeg får oprettet alle sider og routingen og giver mig i ast med PageLayout. 
+
+Headeren har en svær styling på baggrundsgraffiken som jeg forsøger at løse. men siger til mig selb, at hvis det driller er det ikke den del jeg vil bruge alt min tid på her isyarten.

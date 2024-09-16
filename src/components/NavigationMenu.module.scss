@@ -1,0 +1,53 @@
+@import '../App.scss'; 
+.nav {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  
+    @media (max-width: 850px) {
+      display: none; // Skjul standard menu på mindre skærme
+    }
+  }
+  
+  .burgerMenu {
+    display: none;
+  
+    @media (max-width: 850px) {
+      display: block; // Vis burger menu på mindre skærme
+    }
+  }
+  
+  .menu {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .menuItem {
+    color: #fff;
+    text-decoration: none;
+  
+    &:hover,
+    &.active {
+      color: $ROSAQUARTZ; // Defineret i app.scss
+    }
+  }
+  
+  .menuOpen {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    background-color: $RAISINBLACK;
+    padding: 1rem;
+    border-radius: 4px;
+  
+    .menuItem {
+      padding: 0.5rem 0;
+    }
+  }
+  

@@ -1,0 +1,26 @@
+/* BurgerMenu.module.scss */
+.burgerMenu {
+    display: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  
+    .bar {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+  
+    .open {
+      transform: rotate(45deg);
+    }
+  }
+  
+  /* Vis burger-menu kun ved skærmbredder under 850px */
+  @media (max-width: 850px) {
+    .burgerMenu {
+      display: block;
+    }
+  }
+  

@@ -1,0 +1,147 @@
+@import '../App.scss'; 
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: $RAISINBLACK;
+  color: white;
+  height: 326px;
+  padding: 3rem;
+  box-sizing: border-box;
+  margin-top: 2rem;
+
+  .leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  
+    .logo {
+      width: 150px;
+      height: auto;
+
+    }
+  
+    address {
+      margin-top: 2rem;
+      font-size: 18px;
+      font-style: normal; // Fjerner kursiv
+  
+      a {
+        color: inherit; // Arver farven fra adressen
+        text-decoration: none; // Fjerner understregning
+      }
+    }
+  }
+.middle{
+  margin-top: auto;
+  .menu {
+    list-style: none;
+
+    gap: 1rem;
+  }
+  
+  .menuItem {
+    color: #fff;
+    text-decoration: none;
+  
+    &:hover,
+    &.active {
+      color: $ROSAQUARTZ; // Defineret i app.scss
+    }
+  }
+}
+  .rightSide {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    text-align: right;
+  
+    p {
+      text-align: right;
+
+    }
+  
+    h2 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  
+    form {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: 1rem;
+  
+      input {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 4px 0 0 4px;
+      }
+  
+      button {
+        background-color: $ROSAQUARTZ; // Defineret i app.scss
+        border: none;
+        padding: 0.5rem;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        color: #fff;
+      }
+    }
+  
+    .error {
+      color: red;
+    }
+  
+    .success {
+      color: green;
+    }
+  }
+}
+
+// Medieforespørgsel for mindre skærme
+@media (max-width: 1000px) {
+  .footer {
+    height: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    .leftSide {
+      address {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .logo {
+        place-self: center;
+      }
+    }
+
+    .rightSide {
+      p {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        color: orange;
+      }
+
+      form {
+        input {
+          width: 100%;
+        }
+  
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
