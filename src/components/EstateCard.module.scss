@@ -10,6 +10,9 @@
   position: relative;
   border-radius: 4px;
   padding-bottom: 1rem;
+  @media (max-width: 1250px) { // Tablet breakpoint
+    width: 80%;
+}
 }
 
 .cardImage {

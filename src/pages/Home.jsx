@@ -3,6 +3,9 @@ import styles from './Home.module.scss'; // Importér dine stilarter
 import SliderGallery from '../components/SliderGallery';
 import EstateSection from '../components/EstateSection';
 
+
+
+
 const Home = () => {
   return (
     <div className={styles.home}>
@@ -10,8 +13,10 @@ const Home = () => {
         <SliderGallery />
       </section>
 
-      <section> <EstateSection /></section>
-      <section></section>
+      <section className={styles.EstateSection}> <EstateSection /></section>
+
+
+
 
 
     </div>

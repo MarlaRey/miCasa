@@ -6,5 +6,8 @@
     align-items: center;
     gap: 1rem;
     position: relative;
+    @media (max-width: 1250px) { // Tablet breakpoint
+      flex-direction: column;
+  }
   }
   
