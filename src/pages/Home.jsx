@@ -1,20 +1,19 @@
 import React from 'react';
 import styles from './Home.module.scss'; // Importér dine stilarter
 import SliderGallery from '../components/SliderGallery';
+import EstateSection from '../components/EstateSection';
 
 const Home = () => {
   return (
     <div className={styles.home}>
-      {/* Galleriet placeres øverst */}
       <section className={styles.gallerySection}>
         <SliderGallery />
       </section>
 
-      {/* Resten af din side kan du tilføje her */}
-      <section className={styles.content}>
-        <h1>Velkommen til Hjemmesiden</h1>
-        <p>Her kan du finde mere information...</p>
-      </section>
+      <section> <EstateSection /></section>
+      <section></section>
+
+
     </div>
   );
 };

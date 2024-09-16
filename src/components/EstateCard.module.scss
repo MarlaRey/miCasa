@@ -1,0 +1,42 @@
+/* EstateCard.module.scss */
+.card {
+  width: 384px;
+  height: 100%;
+  border-radius: 8px 0px 0px 0px;
+  background-color: #fff;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  position: relative;
+  border-radius: 4px;
+  padding-bottom: 1rem;
+}
+
+.cardImage {
+  padding: 1rem;
+  width: 100%;
+  height: 271px;
+  object-fit: cover;
+  :hover {
+    opacity: 0.8;
+  }
+}
+
+.cardContent {
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.cardContent h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.cardContent p {
+  margin: 0.5rem 0;
+}
+
+
+.card:nth-child(2) {
+  margin-top: -2rem;
+}
