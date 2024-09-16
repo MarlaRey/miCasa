@@ -5,7 +5,6 @@ import supabase from '../../supabase';
 import logo from '../assets/img/Logo.png';
 import { Link } from 'react-router-dom';
 
-
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -27,11 +26,16 @@ const Footer = () => {
 
       if (error) throw error;
 
-      setSuccess('You have successfully subscribed to the newsletter!');
+      setSuccess('Super! Du vil nu modtage vores nyhedsbreve');
       setEmail('');
       setError('');
+
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setSuccess('');
+      }, 3000);
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError('Der skete en fejl, prøv igen.');
     }
   };
 
@@ -50,12 +54,12 @@ const Footer = () => {
       </div>
       <div className={styles.middle}>
         <nav>
-        <ul className={styles.menu}>
-        <li><Link to="/" className={styles.menuItem}>Forside</Link></li>
-        <li><Link to="/boliger" className={styles.menuItem}>Boliger</Link></li>
-        <li><Link to="/kontakt" className={styles.menuItem}>Kontakt</Link></li>
-        <li><Link to="/login" className={styles.menuItem}>Login</Link></li>
-      </ul>
+          <ul className={styles.menu}>
+            <li><Link to="/" className={styles.menuItem}>Forside</Link></li>
+            <li><Link to="/boliger" className={styles.menuItem}>Boliger</Link></li>
+            <li><Link to="/kontakt" className={styles.menuItem}>Kontakt</Link></li>
+            <li><Link to="/login" className={styles.menuItem}>Login</Link></li>
+          </ul>
         </nav>
       </div>
       <div className={styles.rightSide}>
