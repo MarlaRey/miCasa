@@ -35,9 +35,9 @@
   }
 .middle{
   margin-top: auto;
+
   .menu {
     list-style: none;
-
     gap: 1rem;
   }
   
@@ -110,6 +110,7 @@
     gap: 1rem;
     align-items: center;
 
+
     .leftSide {
       address {
         text-align: center;
@@ -130,7 +131,7 @@
       h2 {
         font-size: 1.5rem;
         text-align: center;
-        color: orange;
+ 
       }
 
       form {
@@ -143,5 +144,6 @@
         }
       }
     }
+
   }
 }
