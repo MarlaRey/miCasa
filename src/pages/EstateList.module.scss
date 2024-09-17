@@ -1,11 +1,49 @@
-.container{
-    margin-top: 2rem;
-    position: relative;
-    min-height: 100vh;
- .section{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-
- } 
-}
+.container {
+   margin-top: 2rem;
+   position: relative;
+   min-height: 100vh;
+   padding: 2rem;
+   width: 100%;  // Brug 100% bredde i stedet for en fast bredde
+   max-width: 1900px;  // Maksimal bredde for store skærme
+   margin: 0 auto;  // Centrer containeren på siden
+ 
+   .filters {
+     position: absolute;  // Sørger for, at filterne kan placeres relativt til .container
+     right: 3rem;  // Juster afstand fra højre kant
+     top: 2rem;  // Juster afstand fra toppen af .container
+     display: flex;
+     gap: 1rem;
+     
+   }
+   .filters select {
+      padding: 0.5rem 1rem;  // Tilføj ekstra padding
+      border-radius: 8px;  // Rund hjørnerne
+      border: 1px solid #ccc;  // Tilføj en let grå kant
+      font-size: 1rem;  // Øg skriftstørrelsen, hvis nødvendigt
+      background-color: #fff;  // Hvid baggrundsfarve
+      appearance: none;  // Fjern standard styling i nogle browsere
+      transition: border-color 0.3s ease;  // Tilføj en overgangseffekt for border-farve
+      cursor: pointer;  // Tilføj cursor pointer for at indikere klikbarhed
+    }
+  
+    .filters select:focus {
+      border-color: #007bff;  // Skift border-farve når elementet har fokus
+      outline: none;  // Fjern standard outline ved fokus
+    }
+   .section {
+      margin-top: 4rem;
+     display: flex;
+     flex-wrap: wrap;
+     gap: 1rem;
+     justify-content: center;  // Centrer kortene horisontalt
+     img{
+      height: 350px;
+     }
+ 
+     @media (max-width: 850px) {
+       gap: 1rem;
+       justify-content: center;  // Sørg for centrering på mobile enheder også
+     }
+   }
+ }
+ 

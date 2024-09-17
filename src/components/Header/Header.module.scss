@@ -2,8 +2,10 @@
 
 .header {
   width: 100%;
+
   position: relative;
   z-index: 1; // Sørg for, at headeren ligger under navigationen, hvis navigationen er absolut positioneret
+
 }
 
 
@@ -13,9 +15,9 @@
 
 .backgroundTop {
   background-color: $RAISINBLACK; // Farven fra app.scss
-  height: 100px;
+  height: 150px;
   width: 100%;
-
+  padding: 2rem;
 
 }
 
@@ -38,6 +40,7 @@
   margin-top: 0.5rem;
   display: block;
   z-index: 9999;
+  padding: 2rem;
 
   @media (max-width: 850px) {
     width: 190px;
@@ -54,8 +57,8 @@
 
 .userInfo {
   position: absolute;
-  top: 1rem;
-  right: 37rem;
+  top: 0rem;
+  right: 2rem;
   z-index: 9999;
 
   // background-color: $RAISINBLACK; // Farven fra app.scss

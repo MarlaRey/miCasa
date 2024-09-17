@@ -5,6 +5,7 @@
     flex-direction: column;
     min-height: 100vh; // Sikrer at containeren fylder hele højden af viewporten
     margin: 0;
+
     opacity: 0; /* Starter usynligt */
     transition: opacity 1.5s ease-in-out; /* Fade-in transition */
   }
