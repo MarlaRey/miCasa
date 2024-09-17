@@ -9,7 +9,7 @@
  
    .filters {
      position: absolute;  // Sørger for, at filterne kan placeres relativt til .container
-     right: 3rem;  // Juster afstand fra højre kant
+     right: 12rem;  // Juster afstand fra højre kant
      top: 2rem;  // Juster afstand fra toppen af .container
      display: flex;
      gap: 1rem;
@@ -37,7 +37,7 @@
       margin-top: 4rem;
      display: flex;
      flex-wrap: wrap;
-     gap: 1rem;
+     gap: 2rem;
      justify-content: center;  // Centrer kortene horisontalt
      img{
       height: 350px;
