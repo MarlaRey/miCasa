@@ -13,6 +13,9 @@
      top: 2rem;  // Juster afstand fra toppen af .container
      display: flex;
      gap: 1rem;
+     @media (max-width: 850px) {
+      right: 1rem;  // Juster afstand fra højre kant
+    }
      
    }
    .filters select {
