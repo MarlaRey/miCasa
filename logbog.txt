@@ -6,4 +6,23 @@ opsætning af database går k.
 
  Jeg bliver klar over jeg må bryde opgaven ned og tage den bid for bid. jeg får oprettet alle sider og routingen og giver mig i ast med PageLayout. 
 
-Headeren har en svær styling på baggrundsgraffiken som jeg forsøger at løse. men siger til mig selb, at hvis det driller er det ikke den del jeg vil bruge alt min tid på her isyarten.
+Headeren har en svær styling på baggrundsgraffiken som jeg forsøger at løse. men siger til mig selb, at hvis det driller er det ikke den del jeg vil bruge alt min tid på her isyarten. i starten fokusrerer jeg meget på hvirdan jeg kan lave bunden på toppen. og jeg aner ikke hvad sådan en form hedder. så til sidst tænker jeg ahaaa, bunden er en trekant. Den vil jeg lave i stedet. jeg får det til at virke rimelig smart og kan skrive om det i rapporten!nå det lykedes ik alligevel. den header tager for meget tid, jeg må idere
+
+HVAD KOMMER TIL AT TAGE TID:
+responsivitet med burgermenu
+headrGrafik
+
+Interessant: helt tilfældrigt stødte jeg på denne vite-feature, hvor jeg kan slippe for at skrive alle de filer jeg vil importere og istedet bare skrive sådan: 
+For at løse dette problem kan du bruge en metode til at importere billeder fra en statisk mappe i React. Her er en opdateret version af dit SliderGallery.jsx, hvor vi bruger import.meta.glob i Vite til dynamisk at importere billeder fra en mappe. import.meta.glob: Denne funktion bruges til at importere alle billeder fra en bestemt mappe. I dette tilfælde importerer vi alle .jpg-filer fra ../assets/img/slideshow/.
+{ eager: true } sørger for, at billederne importeres med det samme, uden lazy loading.
+Billedhåndtering: Billederne konverteres til en array imageArray, som kan bruges til at navigere mellem billeder i slideren.
+
+jeg er i agng med home og har fåetr hul igennem til supabase. synes dt er mega åndssvagt lavet med billederne. angribes af irriterende uforståelige fejl her ved nitiden efter at have holdt fri mange timer. tænekder det er mit clue til at stoppe for i dag. hader følelseln her de første par dage hvor man ikke aner om man har travlt eller er godt med.
+
+Det er tirsdag morgen. jeg har sovet noget uroligt. har tænkt en masse på opgaven. beslutter mig for at gå væk fra forsiden og lave nogle andre sider. Fordi det var super irriterende problem i går, som jeg bliver nød til at få lidt afstand fra. Jeg laver login.
+
+Det fungerer gdt for mig at skifte fokus. jeg henter min loginfunktion fra opgaven bagetanker, da jeg der arbejdede med samme funktionalitt med en adgang til Min Side når man er logget ind osv. importen af komponenterne går ret godt, det er altid spændende at se hvordan sådanne brikker passer ind i helt andre projekter. Dog arbejdede jeg i det rojekt ike helt s organisreret så mit login-komponent og Min side er nogle langhårede sataner. Men det er jo også en måde at erfare at atoomic design er vejen frem i fremtiden.
+
+du bruger variabler og mixins i din styling. Skriv om hvordan du bruger farverne og knapdesinet for at skabe ensartethed på siden og spare tid og plads. og beslutter kunden sig for at ændre farvekoderne er det let gjort på hele siden.
+
+det driller med at få den til at sige hvilken bruger der er logget ind. Jeg vælger at lade det ligge, oprette et issue og gå videre.

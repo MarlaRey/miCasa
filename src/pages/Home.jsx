@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './Home.module.scss'; // Importér dine stilarter
-import SliderGallery from '../components/SliderGallery';
-import EstateSection from '../components/EstateSection';
+import SliderGallery from '../components/Home_SliderGallery/SliderGallery';
+import EstateSection from '../components/Home_EstateSection/EstateSection';
+import ReviewSection from '../components/Home_ReviewSection/ReviewSection';
+import SubmitReview from '../components/Home_ReviewSection/SubmitReview';
 
 
 

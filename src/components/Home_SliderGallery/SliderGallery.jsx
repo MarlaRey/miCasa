@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './SliderGallery.module.scss'; // Importér dine stilarter
 
 const SliderGallery = () => {
-  const images = import.meta.glob('../assets/img/slideshow/*.jpg', { eager: true });
+  const images = import.meta.glob('../../assets/img/slideshow/*.jpg', { eager: true });
 
   const imageArray = Object.values(images).map((image) => image.default);
   const [currentIndex, setCurrentIndex] = useState(0);

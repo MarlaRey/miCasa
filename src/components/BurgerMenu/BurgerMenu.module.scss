@@ -1,4 +1,4 @@
-@import '../App.scss'; 
+@import '../../App.scss'; // Importér dine variabler her
 .burgerMenu {
   display: none;
 
@@ -22,18 +22,25 @@
         height: 3px;
         background-color: #fff;
         transition: all 0.3s ease;
-      }
+        z-index: 9999;
 
-      &.open .line:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
+        &:nth-child(1) {
+          &.open {
+            transform: rotate(45deg) translate(5px, 5px);
+          }
+        }
 
-      &.open .line:nth-child(2) {
-        opacity: 0;
-      }
+        &:nth-child(2) {
+          &.open {
+            opacity: 0;
+          }
+        }
 
-      &.open .line:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
+        &:nth-child(3) {
+          &.open {
+            transform: rotate(-45deg) translate(5px, -5px);
+          }
+        }
       }
     }
   }
@@ -48,12 +55,12 @@
     z-index: 9;
     display: flex;
     justify-content: center;
-padding-top: 4rem;
+    padding-top: 4rem;
 
     ul {
       list-style: none;
       padding: 0;
-      text-align: center;
+      text-align: left;
 
       li {
         margin: 1rem 0;

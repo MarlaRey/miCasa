@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import supabase from '../../supabase';
-import EstateCard from './EstateCard'; // Importér kortkomponent
+import supabase from '../../../supabase';
+import EstateCard from '../Home_EstateCard/EstateCard'; // Importér kortkomponent
 import styles from './EstateSection.module.scss';
 
 const EstateSection = () => {

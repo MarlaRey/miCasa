@@ -1,8 +1,8 @@
 // src/components/Footer/Footer.js
 import React, { useState } from 'react';
 import styles from './Footer.module.scss';
-import supabase from '../../supabase';
-import logo from '../assets/img/Logo.png';
+import supabase from '../../../supabase';
+import logo from '../../assets/img/Logo.png';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {

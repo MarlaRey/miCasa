@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     // Leverer kontekst-værdier til komponenter, der bruger AuthContext
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn,  login, logout }}>
       {children}
     </AuthContext.Provider>
   );

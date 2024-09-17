@@ -1,4 +1,4 @@
-@import '../App.scss'; 
+@import '../../App.scss'; 
 .nav {
     position: absolute;
     top: 2rem;
@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    z-index: 0;
   
     @media (max-width: 850px) {
       display: none; // Skjul standard menu på mindre skærme
@@ -29,7 +30,7 @@
   .menuItem {
     color: #fff;
     text-decoration: none;
-  
+  @include heading3;
     &:hover,
     &.active {
       color: $ROSAQUARTZ; // Defineret i app.scss
@@ -49,5 +50,22 @@
     .menuItem {
       padding: 0.5rem 0;
     }
+  }
+  .loggedInInfo {
+    margin-left: auto;
+    color: #fff;
+  }
+  
+  .logoutButton {
+    background-color: #f44336;
+    border: none;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .logoutButton:hover {
+    background-color: #d32f2f;
   }
   

@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import styles from './PageLayout.module.scss';
 
 //her har vi en destructrue assignment i et funktionsparamater. en destructrue assignment er en måde at udpakke værdier fra objekter eller arrays. her bruges det til at udpakke de props fra objektet,der bliver sendt til komponenten.

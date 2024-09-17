@@ -1,4 +1,4 @@
-@import '../App.scss';
+@import '../../App.scss';
 
 .pageLayout {
     display: flex;
@@ -6,13 +6,7 @@
     min-height: 100vh; // Sikrer at containeren fylder hele højden af viewporten
     margin: 0;
 
-    .main {
-     
-        // max-width: 1440px;
-        margin: 0 auto; // Center main horisontalt
 
-
-    }
 
 
 
@@ -20,3 +14,10 @@
         width: 100%;
     }
 }
+.main {
+    margin-top: 30rem;
+       // max-width: 1440px;
+       margin:auto; // Center main horisontalt
+
+
+   }

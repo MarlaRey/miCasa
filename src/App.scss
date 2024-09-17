@@ -5,7 +5,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
  
+}
+body{
+    overflow-x: hidden;
 }
 
 // Primary Colors
@@ -42,8 +46,8 @@ $LAVENDERBLUSH: #F7EBEC;
     font-size: 16px;
 }
 
-// Form Button Styling
-.form-button {
+// Form Button Styling as Mixin
+@mixin form-button {
     background-color: $LAVENDERBLUSH; // Brug variabel
     color: black;
     border: none;
@@ -62,3 +66,4 @@ $LAVENDERBLUSH: #F7EBEC;
         background-color: $THISTLE; 
     }
 }
+

@@ -1,0 +1,95 @@
+@import '../../App.scss'; // Importér dine variabler her
+
+.header {
+  width: 100%;
+  position: relative;
+  z-index: 1; // Sørg for, at headeren ligger under navigationen, hvis navigationen er absolut positioneret
+}
+
+
+.background {
+  position: relative;
+}
+
+.backgroundTop {
+  background-color: $RAISINBLACK; // Farven fra app.scss
+  height: 100px;
+  width: 100%;
+
+
+}
+
+
+.backgroundBottom {
+  background-color: #fff;
+  height: 37px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  clip-path: polygon(25% 0, 100% 100%, 0 100%);
+
+}
+
+.logoLink {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  margin-top: 0.5rem;
+  display: block;
+  z-index: 9999;
+
+  @media (max-width: 850px) {
+    width: 190px;
+    height: 16px;
+
+  }
+}
+
+.logo {
+  width: 269px;
+  height: 105px;
+
+}
+
+.userInfo {
+  position: absolute;
+  top: 1rem;
+  right: 37rem;
+  z-index: 9999;
+
+  // background-color: $RAISINBLACK; // Farven fra app.scss
+  @media (max-width: 850px) {
+    right: 0rem;
+    top: 2rem;
+    z-index: 1;
+  }
+
+  .userLog {
+    font-style: italic;
+    margin-right: 1rem;
+    margin-top: 1.2rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: $ROSAQUARTZ;
+
+    .username {
+      @media (max-width: 850px) {
+        display: none;
+      }
+    }
+
+
+    button {
+      @include form-button;
+      background-color: $ROSAQUARTZ;
+      margin-left: 0.8rem; // her bruger jeg en mixin.
+
+      @media (max-width: 850px) {
+        margin-left: 0rem;
+        padding: 0.1rem 0.5rem;
+
+      }
+    }
+  }
+
+}
