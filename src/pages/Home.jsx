@@ -2,11 +2,6 @@ import React from 'react';
 import styles from './Home.module.scss'; // Importér dine stilarter
 import SliderGallery from '../components/Home_SliderGallery/SliderGallery';
 import EstateSection from '../components/Home_EstateSection/EstateSection';
-import ReviewSection from '../components/Home_ReviewSection/ReviewSection';
-import SubmitReview from '../components/Home_ReviewSection/SubmitReview';
-
-
-
 
 const Home = () => {
   return (
@@ -15,12 +10,9 @@ const Home = () => {
         <SliderGallery />
       </section>
 
-      <section className={styles.EstateSection}> <EstateSection /></section>
-
-
-
-
-
+      <section className={styles.estatesSection}>
+        <EstateSection isHome={true} /> {/* Pass isHome prop */}
+      </section>
     </div>
   );
 };

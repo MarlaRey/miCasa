@@ -1,11 +1,12 @@
-// EstateCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './EstateCard.module.scss'; // Importér dine stilarter
+import styles from './EstateCard.module.scss';
 
-const EstateCard = ({ estate }) => {
+const EstateCard = ({ estate, isHome }) => {
+  const cardClass = isHome ? `${styles.card} ${styles.homeCard}` : styles.card;
+
   return (
-    <div className={styles.card}>
+    <div className={cardClass}>
       <img src={estate.image_url} alt={`Image of ${estate.address}`} className={styles.cardImage} />
       <div className={styles.cardContent}>
         <h3>{estate.address}</h3>

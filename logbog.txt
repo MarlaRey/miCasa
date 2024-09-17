@@ -26,3 +26,9 @@ Det fungerer gdt for mig at skifte fokus. jeg henter min loginfunktion fra opgav
 du bruger variabler og mixins i din styling. Skriv om hvordan du bruger farverne og knapdesinet for at skabe ensartethed på siden og spare tid og plads. og beslutter kunden sig for at ændre farvekoderne er det let gjort på hele siden.
 
 det driller med at få den til at sige hvilken bruger der er logget ind. Jeg vælger at lade det ligge, oprette et issue og gå videre.
+
+jeg indser jeg sidder og pusler lidt for længe med du er logget ind beskeden i headeren, og tænker det må være det for nu, selvom jeg gerne ville have den over menuen.
+
+jeg fordyber mig i små detaljer og det skal jeg passe på med her i starten det hører til finpudsning. jeg beslutter mig for at give mig i kast med boligsiden kl 10.30 tirsdag.
+
+GENBRUG -fidusen ved komponeneter. jeg forsøger at bruge mine cards fra homeog døjer med stylingsfinessen fra forsiden hvor det midterste card skal være hevet længere op end de andre. Det går jo igen på boliglisten.... hmmmm.

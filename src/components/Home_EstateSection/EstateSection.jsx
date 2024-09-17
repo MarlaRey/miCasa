@@ -3,7 +3,7 @@ import supabase from '../../../supabase';
 import EstateCard from '../Home_EstateCard/EstateCard'; // Importér kortkomponent
 import styles from './EstateSection.module.scss';
 
-const EstateSection = () => {
+const EstateSection = ({ isHome }) => {
   const [estates, setEstates] = useState([]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const EstateSection = () => {
   return (
     <section className={styles.section}>
       {estates.map((estate) => (
-        <EstateCard key={estate.id} estate={estate} />
+         <EstateCard key={estate.id} estate={estate} isHome={isHome} />
       ))}
     </section>
   );
