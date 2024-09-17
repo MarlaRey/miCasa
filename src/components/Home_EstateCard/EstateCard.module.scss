@@ -41,4 +41,7 @@
 /* Special styling for Home page */
 .homeCard:nth-child(2) {
   margin-top: -6rem;
+  @media (max-width: 1250px) { 
+    margin-top: 0;
+  }
 }

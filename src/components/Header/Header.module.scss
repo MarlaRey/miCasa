@@ -2,9 +2,8 @@
 
 .header {
   width: 100%;
-
   position: relative;
-  z-index: 1; // Sørg for, at headeren ligger under navigationen, hvis navigationen er absolut positioneret
+  z-index: 9999; // Sørg for, at headeren ligger under navigationen, hvis navigationen er absolut positioneret
 
 }
 
@@ -18,24 +17,24 @@
   height: 150px;
   width: 100%;
   padding: 2rem;
-
+  clip-path: polygon(100% 0, 100% 100%, 25% 70%);
 }
 
 
 .backgroundBottom {
-  background-color: #fff;
-
-  height: 37px;
-  width: 100%;
   position: absolute;
-  bottom: 0;
-  clip-path: polygon(25% 0, 100% 100%, 0 100%);
+  top: 0;
+  background-color: $RAISINBLACK; // Farven fra app.scss
+  height: 150px;
+  width: 100%;
+  padding: 2rem;
+  clip-path: polygon(0% 0, 100% 0%, 0 100%);
 
 }
 
 .logoLink {
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   left: 1rem;
   margin-top: 0.5rem;
   display: block;
@@ -69,7 +68,7 @@
   }
 
   .userLog {
-    font-style: italic;
+ 
     margin-right: 1rem;
     margin-top: 1.2rem;
     text-decoration: none;
@@ -86,7 +85,7 @@
     button {
       @include form-button;
       background-color: $ROSAQUARTZ;
-      margin-left: 0.8rem; // her bruger jeg en mixin.
+      margin-left: 0.4rem; // her bruger jeg en mixin.
 
       @media (max-width: 850px) {
         margin-left: 0rem;

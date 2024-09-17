@@ -1,5 +1,5 @@
 import React from 'react';
-import useFetchEstates from '../../components/Hooks/useFetchEstates'; // Opdater stien hvis nødvendigt
+import useFetchEstates from '../Fetches/useFetchEstates'; // Opdater stien hvis nødvendigt
 import EstateCard from '../Home_EstateCard/EstateCard'; // Importér kortkomponent
 import styles from './EstateSection.module.scss';
 

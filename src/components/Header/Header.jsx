@@ -14,7 +14,7 @@ const Header = () => {
       {isLoggedIn && ( // Kun hvis brugeren er logget ind
         <nav className={styles.userInfo}>
           <div className={styles.userLog}>
-            <span className={styles.username}>Du er logget ind... </span> 
+            <span className={styles.username}>Du er logget ind </span> 
             <button onClick={logout} className={styles.logoutButton}>Logout</button>
           </div>
         </nav>

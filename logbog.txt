@@ -31,4 +31,15 @@ jeg indser jeg sidder og pusler lidt for længe med du er logget ind beskeden i 
 
 jeg fordyber mig i små detaljer og det skal jeg passe på med her i starten det hører til finpudsning. jeg beslutter mig for at give mig i kast med boligsiden kl 10.30 tirsdag.
 
-GENBRUG -fidusen ved komponeneter. jeg forsøger at bruge mine cards fra homeog døjer med stylingsfinessen fra forsiden hvor det midterste card skal være hevet længere op end de andre. Det går jo igen på boliglisten.... hmmmm.
+GENBRUG -fidusen ved komponeneter. jeg forsøger at bruge mine cards fra homeog døjer med stylingsfinessen fra forsiden hvor det midterste card skal være hevet længere op end de andre. Det går jo igen på boliglisten.... hmmmm. Jeg finder en løsning ved at
+Introducerede isHome-Prop: Tilføjede en isHome-prop til EstateCard-komponenten for at skelne mellem kort, der vises på forsiden og på boliglisten.
+
+Justering i EstateCard: Baseret på isHome-prop’en, anvendte betinget styling for at ændre kortets udseende kun når det vises på forsiden (Home).
+
+Opdatering af EstateSection: Sendte isHome-prop’en som true til EstateCard i Home-komponenten og false i EstateList-komponenten.
+
+Styling i SCSS: Brugte betinget styling i SCSS-filen med &.home og &.list klasser, så specifikke stilarter kun anvendes afhængigt af konteksten (hjem eller liste).
+
+jeg fanger mig selv i at sidde og fedte med transitionen mellem sideskift. Det må høre sig til fnpudsning. Jeg går derfor videre til estateDetails.
+
+det går sgu godt idag! Siden ser flot ud. jeg laver en masse genanvendelig komponeneter. overskuelig letvedligeholdelsesvenlig kode. dog har jeg lidt svært ved at finde hoved og hale i stylingen nogle gange md alle se stylesheets. men jeg får det til at spille! og jeg glemmer helt mine frustrationer når jeg sådan skynder mig videre fra dem. Det er godt til mig at arbejde med skyklapper og bare fokuserer på 1 ting ad gangen. nu vil jeg fx. holde en pause. cykle ind og træne. adjø efter 7 timers arbejde.

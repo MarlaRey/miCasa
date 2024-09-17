@@ -1,0 +1,119 @@
+@import '../App.scss'; 
+.imageSection {
+  position: relative; /* Så vi kan overlappe main */
+  z-index: 1;
+
+  img {
+    width: 100vw;
+    height: 600px;
+    object-fit: cover;
+    margin: 0;
+    z-index: 0;
+    margin-top: -4rem;
+  }
+
+  .raisinBlackBar {
+    background-color: $RAISINBLACK;
+    width: 100vw;
+    height: 30px;
+    position: absolute; /* Gør bjælken positioneret i forhold til imageSection */
+    bottom: 0; /* Placer bjælken i bunden af billedet */
+    z-index: 2; /* Sikrer, at bjælken er over billedet */
+  }
+}
+
+.main {
+  background-color: rgba(255, 255, 255, 0.928); /* Eller den baggrundsfarve, du ønsker */
+  width: 80vw;
+  margin: auto;
+  position: relative; /* Lad det lappe ind over billedet */
+  margin-top: -15rem; /* Justér denne værdi for at få det ønskede overlap */
+  z-index: 3; /* Sørg for, at main er over imageSection */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gridSection {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+
+
+
+  .div1,
+  .div2,
+  .div3,
+  .div4,
+  .div5,
+  .div6 {
+    padding: 1rem;
+    
+
+  }
+
+  .div1 {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+
+  .div2 {
+    display: flex;
+    justify-content: space-around;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .div3 {
+
+
+  }
+
+  .div3,
+  .div4,
+  .div5,
+  .div6 {
+    p {
+      margin: 0.5rem 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+}
+
+.descriptionSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .employeeInfo {
+    text-align: center;
+
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+}

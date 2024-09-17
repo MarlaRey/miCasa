@@ -14,7 +14,7 @@ const EstateCard = ({ estate, isHome }) => {
         <p>{estate.city}</p>
         <p>{estate.floor_space} m²</p>
         <p>{estate.energy_label_id}</p>
-        <Link to={`/estate/${estate.id}`} className={styles.detailsLink}>Se detaljer</Link>
+        <Link to={`/boliger/${estate.id}`} className={styles.detailsLink}>Se detaljer</Link>
       </div>
     </div>
   );
