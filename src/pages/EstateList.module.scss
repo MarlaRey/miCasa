@@ -1,11 +1,11 @@
 .container{
     margin-top: 2rem;
+    position: relative;
+    min-height: 100vh;
  .section{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
-    .cards:nth-child(2) {
-        background-color: aqua;
-      }
+
  } 
 }

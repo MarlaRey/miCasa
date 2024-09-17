@@ -1,14 +1,15 @@
 .card {
   width: 384px;
   height: 100%;
-  border-radius: 8px 0px 0px 0px;
+  border-radius: 8px;
   background-color: #fff;
   overflow: hidden;
   opacity: 1;
   transition: opacity 0.3s ease;
   position: relative;
   padding-bottom: 1rem;
-  @media (max-width: 1250px) { // Tablet breakpoint
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.331); 
+  @media (max-width: 1250px) { 
     width: 80%;
   }
 }

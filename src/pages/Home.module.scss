@@ -1,8 +1,20 @@
-.home{
-.gallerySection{
+.home{  position: relative;
+    min-height: 100vh;
+    
+.gallerySection
+{
     width: 100vw;
     overflow: hidden;
+ 
     
 }
 
 }
+.home {
+    opacity: 0; /* Start med at skjule */
+    transition: opacity 1.5s ease-in-out; /* Transition for fade-in */
+  }
+  
+  .homeVisible {
+    opacity: 1; /* Fuld synlighed når siden er klar */
+  }

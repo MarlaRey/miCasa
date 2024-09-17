@@ -1,71 +1,84 @@
-@import '../../App.scss'; 
+@import '../../App.scss';
+
 .nav {
-    position: absolute;
-    top: 2rem;
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    z-index: 0;
-  
-    @media (max-width: 850px) {
-      display: none; // Skjul standard menu på mindre skærme
-    }
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 0;
+
+  @media (max-width: 850px) {
+    display: none; // Skjul standard menu på mindre skærme
   }
-  
-  .burgerMenu {
-    display: none;
-  
-    @media (max-width: 850px) {
-      display: block; // Vis burger menu på mindre skærme
-    }
+}
+
+.burgerMenu {
+  display: none;
+
+  @media (max-width: 850px) {
+    display: block; // Vis burger menu på mindre skærme
   }
-  
-  .menu {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .menuItem {
-    color: #fff;
-    text-decoration: none;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.menuItem {
+  color: #fff;
+  text-decoration: none;
   @include heading3;
-    &:hover,
-    &.active {
-      color: $ROSAQUARTZ; // Defineret i app.scss
-    }
+
+  &:hover,
+  &.active {
+    color: $ROSAQUARTZ; // Defineret i app.scss
   }
-  
-  .menuOpen {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 2rem;
-    right: 1rem;
-    background-color: $RAISINBLACK;
-    padding: 1rem;
-    border-radius: 4px;
-  
-    .menuItem {
-      padding: 0.5rem 0;
-    }
+}
+
+.menuOpen {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  background-color: $RAISINBLACK;
+  padding: 1rem;
+  border-radius: 4px;
+
+  .menuItem {
+    padding: 0.5rem 0;
   }
-  .loggedInInfo {
-    margin-left: auto;
-    color: #fff;
+}
+
+.loggedInInfo {
+  margin-left: auto;
+  color: #fff;
+}
+
+.logoutButton {
+  background-color: #f44336;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.logoutButton:hover {
+  background-color: #d32f2f;
+}
+
+.menuItem {
+  color: #fff;
+  text-decoration: none;
+  @include heading3;
+
+  &:hover,
+  &.active {
+    color: $ROSAQUARTZ; // Defineret i app.scss
   }
-  
-  .logoutButton {
-    background-color: #f44336;
-    border: none;
-    padding: 10px;
-    color: #fff;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  .logoutButton:hover {
-    background-color: #d32f2f;
-  }
-  
+}

@@ -1,55 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import supabase from '../../../supabase';
+import React from 'react';
+import useFetchEstates from '../../components/Hooks/useFetchEstates'; // Opdater stien hvis nødvendigt
 import EstateCard from '../Home_EstateCard/EstateCard'; // Importér kortkomponent
 import styles from './EstateSection.module.scss';
 
-const EstateSection = ({ isHome }) => {
-  const [estates, setEstates] = useState([]);
+const EstateSection = ({ isHome, limit = 3, sortOption = 'created_at', filterType = '' }) => {
+  // Hent et større antal estates end det ønskede limit
+  const { estates, loading, error } = useFetchEstates(limit * 25, sortOption, filterType); // Hent dobbelt så mange estates
 
-  useEffect(() => {
-    fetchEstates();
-  }, []);
-  const fetchEstates = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('estates')
-        .select(`
-          id,
-          address,
-          price,
-          floor_space,
-          energy_label_id,
-          city_id,
-          estate_image_rel(image_id, images(image_url)),
-          cities(name)  // Assuming "cities" table has a "name" column for the city
-        `)
-        .limit(3)
-        .order('created_at', { ascending: false });
-  
-      if (error) throw error;
-  
-      // Process data to include the image URL
-      const estatesWithImages = data.map(estate => {
-        // Find the primary image URL
-        const primaryImage = estate.estate_image_rel.find(rel => rel.images?.image_url);
-        return {
-          ...estate,
-          image_url: primaryImage ? primaryImage.images.image_url : 'src/assets/img/slideshow/slide-5.jpg', // Fallback image if no primary image
-          city: estate.cities?.name // Ensure city name is included if available
-        };
-      });
-  
-      setEstates(estatesWithImages);
-    } catch (error) {
-      console.error('Error fetching estates:', error);
-    }
-  };
-  
+  if (loading) return <p>Loading estates...</p>;
+  if (error) return <p>Error loading estates: {error.message}</p>;
+
+  // Hvis vi er på forsiden og isHome er true, vælg tilfældige estates
+  const displayEstates = isHome
+    ? estates.sort(() => 0.5 - Math.random()).slice(0, limit) // Vælg tilfældige estates
+    : estates.slice(0, limit); // Vis første 'limit' estates hvis ikke på forsiden
 
   return (
     <section className={styles.section}>
-      {estates.map((estate) => (
-         <EstateCard key={estate.id} estate={estate} isHome={isHome} />
+      {displayEstates.map((estate) => (
+        <EstateCard key={estate.id} estate={estate} isHome={isHome} />
       ))}
     </section>
   );

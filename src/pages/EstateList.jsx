@@ -1,56 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import supabase from '../../supabase';
-import EstateCard from '../components/Home_EstateCard/EstateCard'; // Opdater import
+import React, { useState } from 'react';
+import useFetchEstates from '../components/Hooks/useFetchEstates'; // Opdater stien hvis nødvendigt
+import EstateCard from '../components/Home_EstateCard/EstateCard';
 import styles from './EstateList.module.scss';
 
 const EstateList = () => {
-  const [estates, setEstates] = useState([]);
   const [sortOption, setSortOption] = useState('price');
   const [filterType, setFilterType] = useState('');
+  
+  const { estates, loading, error } = useFetchEstates(100, sortOption, filterType); // Henter op til 100 boliger
 
-  useEffect(() => {
-    fetchEstates();
-  }, [sortOption, filterType]);
-
-  const fetchEstates = async () => {
-    try {
-      let query = supabase
-        .from('estates')
-        .select(`
-          id,
-          address,
-          price,
-          floor_space,
-          energy_label_id,
-          city_id,
-          estate_image_rel(image_id, images(image_url)),
-          cities(name)
-        `)
-        .order(sortOption, { ascending: true })
-        .limit(100);
-
-      if (filterType) {
-        query = query.eq('property_type', filterType); 
-      }
-
-      const { data, error } = await query;
-
-      if (error) throw error;
-
-      const estatesWithImages = data.map(estate => {
-        const primaryImage = estate.estate_image_rel.find(rel => rel.images?.image_url);
-        return {
-          ...estate,
-          image_url: primaryImage ? primaryImage.images.image_url : 'src/assets/img/slideshow/slide-5.jpg',
-          city: estate.cities?.name
-        };
-      });
-
-      setEstates(estatesWithImages);
-    } catch (error) {
-      console.error('Error fetching estates:', error);
-    }
-  };
+  if (loading) return <p>Loading estates...</p>;
+  if (error) return <p>Error loading estates: {error.message}</p>;
 
   return (
     <div className={styles.container}>
@@ -64,7 +24,6 @@ const EstateList = () => {
           <option value="">All Types</option>
           <option value="apartment">Apartment</option>
           <option value="house">House</option>
-          {/* Add more options as needed */}
         </select>
       </div>
       <section className={styles.section}>
