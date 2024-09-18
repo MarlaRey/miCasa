@@ -48,6 +48,9 @@
   .div6 {
     padding: 1rem;
   }
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+  }
   .div1 {
     h1 {
       font-size: 2rem;
@@ -80,7 +83,15 @@
 
       }
     }
+    .div3 {
+div{
+  display: flex;
+  gap: 0.3rem;
+}
+      
 
+    }
+    
   .div3,
   .div4,
   .div5,
@@ -89,9 +100,6 @@
       margin: 0.5rem 0;
     }
 
-    h1 {
-      font-size: 2rem;
-    }
   }
 }
 
@@ -100,6 +108,9 @@
   grid-template-columns: 2fr 1fr;
   gap: 6rem;
   padding: 2rem;
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+  }
 
   .description {
     font-size: 1rem;

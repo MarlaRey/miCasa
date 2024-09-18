@@ -103,7 +103,8 @@ const EstateDetails = () => {
           </div>
 
           <div className={styles.div3}>
-            <p>Kontantpris:</p><h1>{estate.price} DKK</h1>
+            <div>
+            <p>Kontantpris: </p><h1> {estate.price} DKK</h1></div>
             <p>Udbetaling: {estate.payout} DKK</p>
             <p>Ejerudgift pr. måned: {estate.cost} DKK</p>
           </div>
