@@ -1,28 +1,39 @@
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
+@import '../../App.scss';
   
   .modal {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    max-width: 90%;
+    background-color: $PAYNESGRAY;
+    padding: 2rem;
+
+    width: 99.9vw;
+    height: 500px;
     position: relative;
+    margin-top: -2rem;
   }
   
-  .formGroup {
+  .reviewForm {
     margin-bottom: 15px;
+    width: 30%;
+    margin: auto;
+
+    
+    input{
+      border-radius: 4px;
+      border: none;
+   margin-bottom: 0.5rem;
+    }
+    textarea{
+      resize: none;
+      border-radius: 4px;
+      border: none;
+    }
+    select{
+      resize: none;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 0.5rem;
+    }
   }
+
   
   input, textarea, select {
     width: 100%;
@@ -33,21 +44,25 @@
   button {
     padding: 10px 20px;
     margin-top: 10px;
-    background-color: #007bff;
+    background-color:$ROSAQUARTZ;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  
-  .closeButton {
-    background: red;
-    color: white;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
+  .buttonBox{
+    display: flex;
+    justify-content: flex-end;
   }
+  .closeButton {
+
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      fill: #fff;  // Farve på lukkeikonet
+      height: 24px;
+      width: 24px;
+    }}
   

@@ -15,7 +15,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <PageLayout>
+        <PageLayout user={user} setUser={setUser}>
           <Routes>
             <Route path="/" element={<Home user={user} setUser={setUser} />} />
             <Route path="/boliger" element={<EstateList />} />

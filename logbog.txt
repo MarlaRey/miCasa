@@ -12,8 +12,7 @@ HVAD KOMMER TIL AT TAGE TID:
 responsivitet med burgermenu
 headrGrafik
 
-Interessant: helt tilfældrigt stødte jeg på denne vite-feature, hvor jeg kan slippe for at skrive alle de filer jeg vil importere og istedet bare skrive sådan: 
-For at løse dette problem kan du bruge en metode til at importere billeder fra en statisk mappe i React. Her er en opdateret version af dit SliderGallery.jsx, hvor vi bruger import.meta.glob i Vite til dynamisk at importere billeder fra en mappe. import.meta.glob: Denne funktion bruges til at importere alle billeder fra en bestemt mappe. I dette tilfælde importerer vi alle .jpg-filer fra ../assets/img/slideshow/.
+Interessant: helt tilfældrigt stødte jeg på denne vite-feature, hvor jeg kan slippe for at skrive alle de filer jeg vil importere og istedet bruge en metode til at importere billeder fra en statisk mappe i React:import.meta.glob: Denne funktion bruges til at importere alle billeder fra en bestemt mappe. I dette tilfælde importerer vi alle .jpg-filer fra ../assets/img/slideshow/.
 { eager: true } sørger for, at billederne importeres med det samme, uden lazy loading.
 Billedhåndtering: Billederne konverteres til en array imageArray, som kan bruges til at navigere mellem billeder i slideren.
 
@@ -23,6 +22,7 @@ Det er tirsdag morgen. jeg har sovet noget uroligt. har tænkt en masse på opga
 
 Det fungerer gdt for mig at skifte fokus. jeg henter min loginfunktion fra opgaven bagetanker, da jeg der arbejdede med samme funktionalitt med en adgang til Min Side når man er logget ind osv. importen af komponenterne går ret godt, det er altid spændende at se hvordan sådanne brikker passer ind i helt andre projekter. Dog arbejdede jeg i det rojekt ike helt s organisreret så mit login-komponent og Min side er nogle langhårede sataner. Men det er jo også en måde at erfare at atoomic design er vejen frem i fremtiden.
 
+SCSS er smar fordi:
 du bruger variabler og mixins i din styling. Skriv om hvordan du bruger farverne og knapdesinet for at skabe ensartethed på siden og spare tid og plads. og beslutter kunden sig for at ændre farvekoderne er det let gjort på hele siden.
 
 det driller med at få den til at sige hvilken bruger der er logget ind. Jeg vælger at lade det ligge, oprette et issue og gå videre.
@@ -56,3 +56,11 @@ onsdag: jeg giver mig  i kast med at få estaedetails til at spille. jeg får de
 
 MHT tidsplan og issues:
 jeg støder hele tiden på ting som jeg oplever som værende finpudsing som jeg opretter som issues jeg så kan tage hvis tiden er til det.
+
+Jeg har forsøgt at arbejde med atomic design i denne opgave, mere end jeg plejer, for det hører jeg er bedst practice. Men for søren hvor synes jeg også hurtigt det bliver kringlet og det er svært at hurtigt finde ud af hvor ting trickes.
+
+Jeg laver om på minSide, fordi jeg tænker det er urealistisk at nogen nogensinde får brug for en side hvor man kan logge ind og se sine kommentarer til sine huskøb. A: man køber sjældent hus mere end 2-3 gange i livet B: hvis man gør, er det ikke sikkert den pågældende mægler stadig findes og at det er dem der håndterer salget. C: jeg finder det derimod brugbart at have en side man kan logge ind på når man er i gang med at finde en bolig, hvor man kan gemme de boliger man finder interessante. Idet jeg laver Min SIdes funktionaliet om, ændrer jeg også designet.
+
+puha, der har været mange problemer idag. Der var noget med noget setUser der ikke fungerede, men hvor jeg lavede noet klippeklistre fra en tidligere opgave og omsider fik tingene til at virke. og der kom det hele jo så til at virke med MinSide og likes og reviews og jeg skal komme efter dig. Jeg er endt ud i at lave reviews som en modal, fordi jeg ikke kunne få dropdownen til at virke. jeg reter det hvis jeg får ALT andet på plads, ellers bliver det min løsning på den feature., for man kan jo hvad man skal, og det bryder ikke designet.
+
+Jeg beslutter mig for at se om jeg kan gentage successen med den perfekte pause igen dag og forlader projektet velvidende at jeg har fået nogle vigtige ting på plads og er godt med. Solen skinner, jeg går en tur ned omkring søen.

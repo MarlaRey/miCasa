@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useContext } from 'react';
 import supabase from '../../supabase';
 import styles from './Home.module.scss';
 import SliderGallery from '../components/Home_SliderGallery/SliderGallery';
 import EstateSection from '../components/Home_EstateSection/EstateSection';
 import FormModal from '../components/FormModal/FormModal';
+import { AuthContext } from '../providers/AuthContext'; // Adjust the import path as needed
 
-const Home = ({ user }) => {
+const Home = () => {
+  const { user } = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [currentReview, setCurrentReview] = useState(null);
@@ -21,24 +24,26 @@ const Home = ({ user }) => {
     setIsVisible(true);
 
     const loadReviews = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('reviews')
         .select('*')
         .eq('is_active', true)
         .order('created_at', { ascending: false });
-      setReviews(data);
-
-      if (data.length > 0) {
-        const randomReview = data[Math.floor(Math.random() * data.length)];
-        setCurrentReview(randomReview);
+      if (error) {
+        console.error('Error loading reviews:', error);
+      } else {
+        setReviews(data);
+        if (data.length > 0) {
+          const randomReview = data[Math.floor(Math.random() * data.length)];
+          setCurrentReview(randomReview);
+        }
       }
     };
 
     loadReviews();
   }, []);
 
-  // Håndter anmeldelse formular indsendelse
-  const handleReviewSubmit = async (e) => {
+  const handleReviewSubmit = useCallback(async (e) => {
     e.preventDefault();
     if (!user) {
       alert('Du skal være logget ind for at skrive en anmeldelse.');
@@ -47,17 +52,15 @@ const Home = ({ user }) => {
 
     const { error } = await supabase
       .from('reviews')
-      .insert([
-        {
-          user_id: user.id, // Indsæt brugerens ID fra props
-          estate_id: reviewData.estate_id,
-          title: reviewData.title,
-          content: reviewData.content,
-          num_stars: reviewData.num_stars,
-          created_at: new Date().toISOString(),
-          is_active: true
-        }
-      ]);
+      .insert([{
+        user_id: user.id,
+        estate_id: reviewData.estate_id,
+        title: reviewData.title,
+        content: reviewData.content,
+        num_stars: reviewData.num_stars,
+        created_at: new Date().toISOString(),
+        is_active: true
+      }]);
 
     if (error) {
       console.error('Error submitting review:', error);
@@ -65,22 +68,29 @@ const Home = ({ user }) => {
     } else {
       setReviewData({ title: '', content: '', num_stars: '', estate_id: '' });
       setIsFormVisible(false);
-      const updatedReviews = await supabase
+      const { data: updatedReviews, error: fetchError } = await supabase
         .from('reviews')
         .select('*')
         .eq('is_active', true);
-      setReviews(updatedReviews.data);
+      if (fetchError) {
+        console.error('Error fetching updated reviews:', fetchError);
+      } else {
+        setReviews(updatedReviews);
+        if (updatedReviews.length > 0) {
+          const randomReview = updatedReviews[Math.floor(Math.random() * updatedReviews.length)];
+          setCurrentReview(randomReview);
+        }
+      }
     }
-  };
+  }, [user, reviewData]);
 
-  // Vis modal kun hvis brugeren er logget ind
-  const handleWriteReviewClick = () => {
+  const handleWriteReviewClick = useCallback(() => {
     if (!user) {
       alert('Du skal være logget ind for at skrive en anmeldelse.');
       return;
     }
-    setIsFormVisible(true); // Kun vis modal hvis logget ind
-  };
+    setIsFormVisible(true);
+  }, [user]);
 
   return (
     <div className={`${styles.home} ${isVisible ? styles.homeVisible : ''}`}>
@@ -97,7 +107,6 @@ const Home = ({ user }) => {
         <div className={styles.reviewContainer}>
           {currentReview ? (
             <div>
-              <h2>Anmeldelse</h2>
               <p><strong>{currentReview.title}</strong></p>
               <p>{currentReview.content}</p>
               <p>⭐ {currentReview.num_stars}</p>
@@ -114,7 +123,6 @@ const Home = ({ user }) => {
         </div>
       </section>
 
-      {/* Modal for writing a review */}
       {user && (
         <FormModal
           isVisible={isFormVisible}

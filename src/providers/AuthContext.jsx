@@ -1,29 +1,45 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import supabase from '../../supabase';
 
-// Opretter en ny kontekst for autentificering
 export const AuthContext = createContext();
 
-// AuthProvider-komponent, der giver kontekst-værdier til sine børn
 export const AuthProvider = ({ children }) => {
-  // State til at holde styr på om brugeren er logget ind
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [user, setUser] = useState(null);
 
-  // Funktion til at logge brugeren ind
-  const login = (email) => {
-    setIsLoggedIn(true);
-    setUserEmail(email); // Sæt brugerens e-mailadresse ved login
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Error checking session:', error);
+      } else if (session) {
+        setIsLoggedIn(true);
+        setUser(session.user);
+      }
+    };
+    checkSession();
+  }, []);
+
+  const login = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      console.error('Login error:', error);
+      return { user: null, error };
+    } else {
+      setIsLoggedIn(true);
+      setUser(data.user);
+      return { user: data.user, error: null };
+    }
   };
 
-  // Funktion til at logge brugeren ud
-  const logout = () => {
+  const logout = async () => {
+    await supabase.auth.signOut();
     setIsLoggedIn(false);
-    setUserEmail(''); // Ryd brugerens e-mailadresse ved logout
+    setUser(null);
   };
 
   return (
-    // Leverer kontekst-værdier til komponenter, der bruger AuthContext
-    <AuthContext.Provider value={{ isLoggedIn, userEmail, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

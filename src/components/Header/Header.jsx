@@ -7,14 +7,14 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { AuthContext } from '../../providers/AuthContext'; // Importér AuthContext
 
 const Header = () => {
-  const { isLoggedIn, userEmail, logout } = useContext(AuthContext); // Hent autentificeringsinformation fra AuthContext
+  const { isLoggedIn, user, logout } = useContext(AuthContext); // Hent brugeroplysninger fra AuthContext
 
   return (
     <header className={styles.header}>
-      {isLoggedIn && ( // Kun hvis brugeren er logget ind
+      {isLoggedIn && user && ( // Tjek om brugeren er logget ind og brugeren eksisterer
         <nav className={styles.userInfo}>
           <div className={styles.userLog}>
-            <span className={styles.username}>Du er logget ind: {userEmail}</span> 
+            <span className={styles.username}>Du er logget ind som: {user.email}</span> 
             <button onClick={logout} className={styles.logoutButton}>Logout</button>
           </div>
         </nav>

@@ -11,16 +11,26 @@
     height: 200px;
     border-bottom: 48px solid $ROSAQUARTZ;
     position: relative;
-  }
 
+  }
+  h2{
+    margin-bottom: 2rem;
+  }
   .writeReviewButton {
     display: block;
-    margin: 1rem auto;
+    margin: 2.8rem auto;
     padding: 0.5rem 1rem;
+    height: 48px ;
     border: none;
     background-color: $ROSAQUARTZ; // Erstat med ønsket farve
     color: #fff;
     cursor: pointer;
+    &:hover{
+      background-color: $PAYNESGRAY;
+
+    }
+  
+
   }
 
   .reviewFormContainer {
@@ -44,9 +54,7 @@
     font-size: 16px;
   }
   
-  .reviewForm button {
-    cursor: pointer;
-  }
+
   
 }
 
