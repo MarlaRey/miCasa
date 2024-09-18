@@ -43,3 +43,11 @@ Styling i SCSS: Brugte betinget styling i SCSS-filen med &.home og &.list klasse
 jeg fanger mig selv i at sidde og fedte med transitionen mellem sideskift. Det må høre sig til fnpudsning. Jeg går derfor videre til estateDetails.
 
 det går sgu godt idag! Siden ser flot ud. jeg laver en masse genanvendelig komponeneter. overskuelig letvedligeholdelsesvenlig kode. dog har jeg lidt svært ved at finde hoved og hale i stylingen nogle gange md alle se stylesheets. men jeg får det til at spille! og jeg glemmer helt mine frustrationer når jeg sådan skynder mig videre fra dem. Det er godt til mig at arbejde med skyklapper og bare fokuserer på 1 ting ad gangen. nu vil jeg fx. holde en pause. cykle ind og træne. adjø efter 7 timers arbejde.
+
+Den gode pause
+skal vi lige tage en stund hvor vi lige sætter pris på den healende effekt ved den perfekte pause? tirsdag holdt jeg den perfekte pause, jeg havde været produktiv fra tidelig morgen, det var gået godt, jeg stoppede et sted i arbejdet hvor ingenting drillede og så cyklede jeg en laaang tur i septembersolen. Vejret var mildt og der var dufte allevejne af æbler, græs, bål... alt det gode med alle minderne i. sanerne var på arbejde og jeg så langt ud over markerne og på træerne og på menneskerne. Det var en pause på 3 timer, men jeg føler mig helt salig her efter hjemkomstog er i den grad klar til at fortsætte arbejdet.
+
+Kæmpe succesfølelse!
+yesss jeg føler mig som en vnder! jeg knækkede koden til den der fjollede header baggrund. Det blev til to   clip-path: polygon(0% 0, 100% 0%, 0 100%); og clip-path: polygon(100% 0, 100% 100%, 25% 70%); - den var svær, men nu sidder den der!
+
+jeg stopper for i dag. jeg har gjort det godt.

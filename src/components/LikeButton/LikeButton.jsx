@@ -1,99 +1,91 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../providers/AuthContext';
 import supabase from '../../../supabase';
 import styles from './LikeButton.module.scss';
-import { AuthContext } from '../../providers/AuthContext';
 
+// Importer dine egne ikoner
+import heartEmpty from '../../assets/img/icons/heartVec.png'; // Tomt hjerte
+import heartFull from '../../assets/img/icons/heartFullVec.png'; // Fyldt hjerte
 
-const LikeButton = ({ productId, initialLikesCount, initialLiked, onUpdate }) => {
-  // State til at holde styr på antallet af likes og om produktet er liked af brugeren
-  const [likesCount, setLikesCount] = useState(initialLikesCount);
-  const [liked, setLiked] = useState(initialLiked);
-
-  // Hent login-status fra AuthContext
+const LikeButton = ({ estateId }) => {
   const { isLoggedIn } = useContext(AuthContext);
-  const [user, setUser] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
 
+  // Tjekker om boligen allerede er liket af brugeren
   useEffect(() => {
-    const fetchUser = async () => {
-      if (isLoggedIn) {
-        // Hent brugeroplysninger fra Supabase, hvis brugeren er logget ind
-        const { data: { user } } = await supabase.auth.getUser();
-        setUser(user);
+    const checkIfLiked = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: favorite, error } = await supabase
+          .from('favorites')
+          .select('*')
+          .eq('estate_id', estateId)
+          .eq('user_id', user.id)
+          .single();
 
-        if (user) {
-          // Tjek om brugeren allerede har liket produktet
-          const { data: favorite, error } = await supabase
-            .from('favorite_rows')
-            .select('*')
-            .eq('user_id', user.id)
-            .eq('product_id', productId)
-            .single();
-
-          if (error) {
-            console.error('Fejl ved hentning af favoritstatus', error);
-          } else {
-            setLiked(!!favorite);
-          }
+        if (error) {
+          console.error('Fejl ved hentning af favoritter:', error);
+        } else {
+          setIsLiked(!!favorite);
         }
-      } else {
-        // For brugere der ikke er logget ind, nulstil liked status
-        setLiked(false);
       }
     };
 
-    fetchUser();
-  }, [isLoggedIn, productId]); // Opdater når login-status eller produkt-id ændres
+    if (isLoggedIn) {
+      checkIfLiked();
+    }
+  }, [estateId, isLoggedIn]);
 
-  const handleLike = async () => {
+  // Håndterer klik på like-knappen
+  const handleLikeClick = async () => {
     if (!isLoggedIn) {
-      // Hvis brugeren ikke er logget ind, vis en besked
-      alert('Log ind for at like produkter.');
+      alert('Du skal være logget ind for at like denne bolig.');
       return;
     }
 
-    try {
-      if (liked) {
-        // Hvis produktet allerede er liket, fjern like
-        const { error } = await supabase
-          .from('favorite_rows')
-          .delete()
-          .eq('user_id', user.id)
-          .eq('product_id', productId);
+    const { data: { user } } = await supabase.auth.getUser();
 
-        if (error) throw error;
+    if (isLiked) {
+      // Hvis boligen allerede er liket, fjerner vi den fra favoritter
+      const { error } = await supabase
+        .from('favorites')
+        .delete()
+        .eq('estate_id', estateId)
+        .eq('user_id', user.id);
 
-        setLikesCount(likesCount - 1);
-        setLiked(false);
+      if (error) {
+        console.error('Fejl ved fjernelse af favorit:', error);
       } else {
-        // Like produktet kun hvis det ikke allerede er liket
-        const { data, error } = await supabase
-          .from('favorite_rows')
-          .insert({ user_id: user.id, product_id: productId });
-
-        if (error) throw error;
-
-        setLikesCount(likesCount + 1);
-        setLiked(true);
+        setIsLiked(false);
       }
-      // Kald onUpdate funktionen, hvis den er givet som prop
-      if (onUpdate) onUpdate();
-    } catch (error) {
-      console.error('Fejl ved liking/unliking af produkt', error);
+    } else {
+      // Hvis boligen ikke er liket, tilføjes den til favoritter
+      const { error } = await supabase
+        .from('favorites')
+        .insert({
+          estate_id: estateId,
+          user_id: user.id
+        });
+
+      if (error) {
+        console.error('Fejl ved tilføjelse af favorit:', error);
+      } else {
+        setIsLiked(true);
+      }
     }
   };
 
   return (
-    <div className={styles.likes}>
-      {/* Vis antallet af likes, hvis det er større end 0 */}
-      <span>{likesCount > 0 ? likesCount : ''}</span>
-      {/* Like-knappen, ændrer stil og ikon afhængigt af liked status */}
-      <button
-        onClick={handleLike}
-        className={`${styles.likeButton} ${liked ? styles.liked : ''}`}
-      >
-        {liked ? '❤️' : '🤍'}
-      </button>
-    </div>
+    <button 
+      className={`${styles.likeButton} ${isLiked ? styles.liked : ''}`}
+      onClick={handleLikeClick}
+    >
+      <img 
+        src={isLiked ? heartFull : heartEmpty} 
+        alt={isLiked ? 'Liked' : 'Not Liked'} 
+        className={styles.likeIcon}
+      />
+    </button>
   );
 };
 

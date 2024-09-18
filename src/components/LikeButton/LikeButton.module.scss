@@ -7,14 +7,14 @@
   .likeButton {
     background: none;
     border: none;
-    color: #ccc; /* Default color for unliked state */
+    margin-top: 0.8rem;
     cursor: pointer;
     font-size: 24px;
+    width:90px;
+    height: 90px;
   }
-  
-  .likeButton.liked {
-    color: #e74c3c; /* Color for liked state */
-  }
+
+
   
   .likes span {
     margin-right: 8px;

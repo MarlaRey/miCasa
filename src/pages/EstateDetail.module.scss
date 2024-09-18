@@ -40,9 +40,6 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
-
-
-
   .div1,
   .div2,
   .div3,
@@ -50,33 +47,39 @@
   .div5,
   .div6 {
     padding: 1rem;
-    
-
   }
-
   .div1 {
     h1 {
       font-size: 2rem;
     }
-
     p {
       margin: 0.5rem 0;
     }
   }
-
-  .div2 {
+    .div2 {
     display: flex;
-    justify-content: space-around;
+    gap: 1rem;
+  
+      .iconWrapper {
+        width: 80px;
+        height: 80px;
+        background-color: #fff;
+        border: 0.25px solid $PAYNESGRAY;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          background-color: $ROSAQUARTZ;
+        }
+   
+        img {
+          width: 40%;
+          height: 39%;
+        }
 
-    img {
-      width: 40px;
-      height: 40px;
+      }
     }
-  }
-  .div3 {
-
-
-  }
 
   .div3,
   .div4,
@@ -95,21 +98,28 @@
 .descriptionSection {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  gap: 6rem;
   padding: 2rem;
 
   .description {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.8;
+    padding: 2rem 4rem 0 0;
+    font-weight: 400;
   }
 
   .employeeInfo {
-    text-align: center;
+    margin-bottom: 3rem;
+   p:nth-of-type(1){
+    font-weight: 800;
+   }
 
     img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      object-position: top;
+
     }
 
     p {
