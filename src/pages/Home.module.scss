@@ -1,20 +1,74 @@
+@import '../App.scss';
+
+.reviewsSection {
+  margin-top: 15rem;
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .reviewContainer {
+    padding: 2rem;
+    background-color: $LAVENDERBLUSH;
+    height: 200px;
+    border-bottom: 48px solid $ROSAQUARTZ;
+    position: relative;
+  }
+
+  .writeReviewButton {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: $ROSAQUARTZ; // Erstat med ønsket farve
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .reviewFormContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .reviewForm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .reviewForm input,
+  .reviewForm textarea,
+  .reviewForm select,
+  .reviewForm button {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .reviewForm button {
+    cursor: pointer;
+  }
+  
+}
+
+
 .home{  position: relative;
     min-height: 100vh;
+    transition: opacity 1.5s ease-in-out; /* Transition for fade-in */
+
     
-.gallerySection
-{
+.gallerySection{
     width: 100vw;
     overflow: hidden;
     margin-top: -4rem;
-    
 }
 
 }
-.home {
-    opacity: 0; /* Start med at skjule */
-    transition: opacity 1.5s ease-in-out; /* Transition for fade-in */
-  }
+.estatesSection{
+  margin-bottom: 2rem;
+  height: 300px;
+}
   
   .homeVisible {
     opacity: 1; /* Fuld synlighed når siden er klar */
+
   }

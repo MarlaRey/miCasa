@@ -5,7 +5,7 @@ import styles from './Login.module.scss'; // Importerer CSS-moduler for stil
 import { AuthContext } from '../providers/AuthContext';
 
 // Login-komponenten håndterer både login og registrering af brugere
-const Login = () => {
+const Login = ({ setUser, user }) => {
   // State til at holde brugerens login- og registreringsdata, fejl- og succesbeskeder samt om vi er i login- eller registreringsmode
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,42 +19,53 @@ const Login = () => {
 
   // Funktion til at håndtere login, kaldes når login-formularen indsendes
   const handleLogin = async (event) => {
-    event.preventDefault(); // Forhindrer standard side-refresh ved form-submit
-    const { error } = await supabase.auth.signInWithPassword({ email, password }); // Forsøger at logge ind via Supabase
+    event.preventDefault();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setError(error.message); // Hvis der er en fejl, vises den i UI
-      setSuccess(""); // Nulstiller eventuelle tidligere succesbeskeder
+      setError(error.message);
+      setSuccess("");
+      setUser(data.user); // Sætter den autentificerede bruger
+      
     } else {
-      setSuccess(`You have logged in successfully!`); // Viser succesbesked
-      setError(""); // Nulstiller eventuelle tidligere fejlbeskeder
-      setEmail(""); // Nulstiller email-feltet
-      setPassword(""); // Nulstiller password-feltet
-      login(); // Opdaterer login-status i AuthContext
-      navigate('/minside'); // Navigerer brugeren til en beskyttet side, f.eks. "min side"
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+            if (error.status === 400) {
+                setError('Forkert adgangskode');
+            } else {
+                throw error;
+            }
+        } else {
+          setSuccess("You have logged in successfully!");
+      setError("");
+      setEmail("");
+      setPassword("");
+      login();
+      navigate('/minside');
+            setUser(data.user); // Sætter den autentificerede bruger
+        }
+      }
+  };
+  
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    console.log("Attempting to register with:", registerEmail, registerPassword); // Debug-log
+    const { error } = await supabase.auth.signUp({ email: registerEmail, password: registerPassword });
+    console.log("Register error:", error); // Debug-log
+    if (error) {
+      setError(error.message);
+      setSuccess("");
+    } else {
+      setSuccess("Du har nu oprettet en bruger og kan logge ind og tilgå MinSide");
+      setError("");
+      setRegisterEmail("");
+      setRegisterPassword("");
+      setTimeout(() => {
+        setSuccess("");
+        navigate('/login');
+      }, 3000);
     }
   };
-
- // Funktion til at håndtere registrering, kaldes når registreringsformularen indsendes
-const handleRegister = async (event) => {
-  event.preventDefault(); // Forhindrer standard side-refresh ved form-submit
-  const { error } = await supabase.auth.signUp({ email: registerEmail, password: registerPassword }); // Forsøger at oprette en ny bruger via Supabase
-  if (error) {
-    setError(error.message); // Hvis der er en fejl, vises den i UI
-    setSuccess(""); // Nulstiller eventuelle tidligere succesbeskeder
-  } else {
-    setSuccess(`Du har nu oprettet en bruger og kan logge ind og tilgå MinSide`); // Viser succesbesked
-    setError(""); // Nulstiller eventuelle tidligere fejlbeskeder
-    setRegisterEmail(""); // Nulstiller registrerings-email-feltet
-    setRegisterPassword(""); // Nulstiller registrerings-password-feltet
-
-    // Skjuler succesbeskeden efter 3 sekunder og navigerer til login-siden
-    setTimeout(() => {
-      setSuccess(""); // Fjern succesbesked
-      navigate('/login'); // Navigerer brugeren til login-siden
-    }, 3000); // 3000 ms = 3 sekunder
-  }
-};
-
+  
 
   return (   
     <div className={styles.mainContainer}>

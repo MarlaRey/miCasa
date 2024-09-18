@@ -51,3 +51,8 @@ Kæmpe succesfølelse!
 yesss jeg føler mig som en vnder! jeg knækkede koden til den der fjollede header baggrund. Det blev til to   clip-path: polygon(0% 0, 100% 0%, 0 100%); og clip-path: polygon(100% 0, 100% 100%, 25% 70%); - den var svær, men nu sidder den der!
 
 jeg stopper for i dag. jeg har gjort det godt.
+
+onsdag: jeg giver mig  i kast med at få estaedetails til at spille. jeg får det  til at klappe. jeg forsøger mig med likebutton funktionalitetten og vil gerne have den til at spille sammen med minside ligesem jeg havde i bagtankker. det driller lidt, men nu ka man i hvert fald like hvis man er logget ind. jeg mangler at komme igennem til minside og korrekt lagring i supabase.
+
+MHT tidsplan og issues:
+jeg støder hele tiden på ting som jeg oplever som værende finpudsing som jeg opretter som issues jeg så kan tage hvis tiden er til det.

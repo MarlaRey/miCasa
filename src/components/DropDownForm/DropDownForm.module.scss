@@ -1,0 +1,28 @@
+.dropdownMenuContainer {
+    position: relative;
+  }
+  
+
+  
+  .reviewForm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  
+  .reviewTextarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .submitButton {
+    align-self: flex-end;
+  }
+  
+  .loginPrompt {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  

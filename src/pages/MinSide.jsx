@@ -2,17 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import supabase from '../../supabase';
 import styles from './MinSide.module.scss';
-import LikeButton from '../components/LikeButton/LikeButton';
 import { AuthContext } from '../providers/AuthContext';
 
-
 const MinSide = () => {
-  const [likedProducts, setLikedProducts] = useState([]); // State til at gemme brugerens favoritter
-  const [userComments, setUserComments] = useState([]); // State til at gemme brugerens kommentarer
+  const [likedEstates, setLikedEstates] = useState([]); // State til at gemme brugerens likede boliger
+  const [userReviews, setUserReviews] = useState([]); // State til at gemme brugerens anmeldelser
   const [user, setUser] = useState(null); // State til at gemme den autentificerede bruger
-  const [editingCommentId, setEditingCommentId] = useState(null); // State til at holde styr på, hvilken kommentar der redigeres
-  const [editedComment, setEditedComment] = useState(''); // State til at holde den redigerede kommentar
-  const [isEditing, setIsEditing] = useState(false); // State til at indikere om der er en kommentar i redigering
+  const [editingReviewId, setEditingReviewId] = useState(null); // State til at holde styr på, hvilken anmeldelse der redigeres
+  const [editedReview, setEditedReview] = useState(''); // State til at holde den redigerede anmeldelse
+  const [isEditing, setIsEditing] = useState(false); // State til at indikere om der er en anmeldelse i redigering
   const { isLoggedIn } = useContext(AuthContext); // Henter login-status fra AuthContext
 
   useEffect(() => {
@@ -22,44 +20,48 @@ const MinSide = () => {
       setUser(user);
 
       if (user) {
-        // Henter brugerens favoritter
+        // Henter brugerens likede boliger
         const { data: favorites, error: favoriteError } = await supabase
-          .from('favorite_rows')
-          .select('product_id')
+          .from('favorites')
+          .select('estate_id')
           .eq('user_id', user.id);
 
         if (favoriteError) {
-          console.error('Fejl ved hentning af favoritter', favoriteError);
+          console.error('Fejl ved hentning af likede boliger', favoriteError);
           return;
         }
 
         if (favorites.length > 0) {
-          const productIds = favorites.map(favorite => favorite.product_id);
+          const estateIds = favorites.map(favorite => favorite.estate_id);
 
-          // Henter produkter baseret på ID'er fra favoritter
-          const { data: products, error: productError } = await supabase
-            .from('products')
+          // Henter boliger baseret på ID'er fra likede boliger
+          const { data: estates, error: estateError } = await supabase
+            .from('estates')
             .select('*')
-            .in('id', productIds);
+            .in('id', estateIds);
 
-          if (productError) {
-            console.error('Fejl ved hentning af produkter', productError);
+          if (estateError) {
+            console.error('Fejl ved hentning af boliger', estateError);
           } else {
-            setLikedProducts(products); // Opdaterer state med favoritter
+            setLikedEstates(estates); // Opdaterer state med likede boliger
           }
         }
 
-        // Henter brugerens kommentarer og tilknytter produkt-titler
-        const { data: comments, error: commentsError } = await supabase
-          .from('user_comments')
-          .select('*, products(title)')
+        // Henter brugerens anmeldelser og tilknytter bolig-titler
+        const { data: reviews, error: reviewsError } = await supabase
+          .from('reviews')
+          .select(`
+            id, content, 
+              title
+            
+          `)
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
 
-        if (commentsError) {
-          console.error('Fejl ved hentning af brugerkommentarer', commentsError);
+        if (reviewsError) {
+          console.error('Fejl ved hentning af brugerens anmeldelser', reviewsError);
         } else {
-          setUserComments(comments); // Opdaterer state med kommentarer
+          setUserReviews(reviews); // Opdaterer state med anmeldelser
         }
       }
     };
@@ -69,171 +71,166 @@ const MinSide = () => {
     }
   }, [isLoggedIn]);
 
-  const handleUnlike = async () => {
-    // Opdaterer listen over favoritter efter fjernelse
+  const handleUnlike = async (estateId) => {
+    // Fjerner en bolig fra brugerens likede boliger
+    await supabase
+      .from('favorites')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('estate_id', estateId);
+
+    // Opdaterer listen over likede boliger
     const { data: favorites, error: favoriteError } = await supabase
-      .from('favorite_rows')
-      .select('product_id')
+      .from('favorites')
+      .select('estate_id')
       .eq('user_id', user.id);
 
     if (favoriteError) {
-      console.error('Fejl ved hentning af favoritter', favoriteError);
+      console.error('Fejl ved hentning af opdaterede likede boliger', favoriteError);
       return;
     }
 
     if (favorites.length > 0) {
-      const productIds = favorites.map(favorite => favorite.product_id);
+      const estateIds = favorites.map(favorite => favorite.estate_id);
 
-      // Henter produkter baseret på opdaterede favoritter
-      const { data: products, error: productError } = await supabase
-        .from('products')
+      // Henter boliger baseret på opdaterede likede boliger
+      const { data: estates, error: estateError } = await supabase
+        .from('estates')
         .select('*')
-        .in('id', productIds);
+        .in('id', estateIds);
 
-      if (productError) {
-        console.error('Fejl ved hentning af produkter', productError);
+      if (estateError) {
+        console.error('Fejl ved hentning af boliger', estateError);
       } else {
-        setLikedProducts(products); // Opdaterer state med opdaterede favoritter
+        setLikedEstates(estates); // Opdaterer state med opdaterede likede boliger
       }
     } else {
-      setLikedProducts([]); // Ingen favoritter tilbage
+      setLikedEstates([]); // Ingen likede boliger tilbage
     }
   };
 
-  const handleEditClick = (comment) => {
-    // Starter redigeringsmodus for den valgte kommentar
-    setEditingCommentId(comment.id);
-    setEditedComment(comment.comment);
+  const handleEditClick = (review) => {
+    // Starter redigeringsmodus for den valgte anmeldelse
+    setEditingReviewId(review.id);
+    setEditedReview(review.content);
     setIsEditing(true);
   };
 
   const handleEditChange = (e) => {
-    setEditedComment(e.target.value); // Opdaterer den redigerede kommentar
+    setEditedReview(e.target.value); // Opdaterer den redigerede anmeldelse
   };
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Opdaterer kommentar i databasen
+      // Opdaterer anmeldelse i databasen
       const { error } = await supabase
-        .from('user_comments')
-        .update({ comment: editedComment })
-        .eq('id', editingCommentId);
+        .from('reviews')
+        .update({ content: editedReview })
+        .eq('id', editingReviewId);
 
       if (error) {
-        console.error('Fejl ved opdatering af kommentar:', error);
+        console.error('Fejl ved opdatering af anmeldelse:', error);
       } else {
         setIsEditing(false);
-        setEditingCommentId(null);
-        setEditedComment('');
-        // Henter opdaterede kommentarer
-        const { data: comments, error: commentsError } = await supabase
-          .from('user_comments')
-          .select('*, products(title)')
+        setEditingReviewId(null);
+        setEditedReview('');
+        // Henter opdaterede anmeldelser
+        const { data: reviews, error: reviewsError } = await supabase
+          .from('reviews')
+          .select(`
+            id, content, estates (
+              title
+            )
+          `)
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
 
-        if (commentsError) {
-          console.error('Fejl ved hentning af brugerkommentarer', commentsError);
+        if (reviewsError) {
+          console.error('Fejl ved hentning af opdaterede anmeldelser', reviewsError);
         } else {
-          setUserComments(comments); // Opdaterer state med opdaterede kommentarer
+          setUserReviews(reviews); // Opdaterer state med opdaterede anmeldelser
         }
       }
     } catch (error) {
-      console.error('Fejl ved redigering af kommentar:', error);
+      console.error('Fejl ved redigering af anmeldelse:', error);
     }
   };
 
-  const handleDeleteClick = async (commentId) => {
-    if (window.confirm('Er du sikker på, at du vil slette denne kommentar?')) {
+  const handleDeleteClick = async (reviewId) => {
+    if (window.confirm('Er du sikker på, at du vil slette denne anmeldelse?')) {
       try {
-        // Sletter kommentar fra databasen
+        // Sletter anmeldelse fra databasen
         const { error } = await supabase
-          .from('user_comments')
+          .from('reviews')
           .delete()
-          .eq('id', commentId);
+          .eq('id', reviewId);
 
         if (error) {
-          console.error('Fejl ved sletning af kommentar:', error);
+          console.error('Fejl ved sletning af anmeldelse:', error);
         } else {
-          setUserComments(userComments.filter(comment => comment.id !== commentId)); // Opdaterer state med slettede kommentarer
+          setUserReviews(userReviews.filter(review => review.id !== reviewId)); // Opdaterer state med slettede anmeldelser
         }
       } catch (error) {
-        console.error('Fejl ved sletning af kommentar:', error);
+        console.error('Fejl ved sletning af anmeldelse:', error);
       }
     }
   };
 
   if (!isLoggedIn) {
-    return <p>Log venligst ind for at se dine favoritter og kommentarer.</p>;
+    return <p>Log venligst ind for at se dine likede boliger og anmeldelser.</p>;
   }
 
   return (
     <div className={styles.mainContainer}>
-
-      <div className={styles.commentsList}>
-        <h3>Mine favoritter</h3>
-        {likedProducts.length > 0 ? (
+      <div className={styles.likedEstatesList}>
+        <h3>Mine likede boliger</h3>
+        {likedEstates.length > 0 ? (
           <ul>
-            {likedProducts.map(product => (
-              <li key={product.id} className={styles.likeList}>
-                <div className={styles.favoriteButton}>
-                  <LikeButton
-                    className={styles.likeButton}
-                    productId={product.id}
-                    initialLiked={true}
-                    onUpdate={handleUnlike} // Opdaterer favoritterne, når produktet fjernes
-                  />
-                </div>
+            {likedEstates.map(estate => (
+              <li key={estate.id} className={styles.estateItem}>
                 <div>
-                  <Link to={`/product/${encodeURIComponent(product.title)}`}>
-                    {product.title}
+                  <Link to={`/boliger/${estate.id}`}>
+                    {estate.address}
                   </Link>
                 </div>
+                <button onClick={() => handleUnlike(estate.id)} className={styles.button}>Fjern</button>
               </li>
             ))}
           </ul>
         ) : (
-          <p>Du har ingen favoritter endnu.</p>
+          <p>Du har ikke liket nogen boliger endnu.</p>
         )}
       </div>
-      <div className={styles.commentsList}>
-        <h3>Mine kommentarer</h3>
-        {userComments.length > 0 ? (
+      <div className={styles.reviewsList}>
+        <h3>Mine anmeldelser</h3>
+        {userReviews.length > 0 ? (
           <ul>
-            {userComments.map(comment => (
-              <li key={comment.id} className={styles.commentItem}>
-                <p>
-                  <strong>Produkt: </strong>
-                  <Link to={`/product/${encodeURIComponent(comment.products.title)}`} className={styles.comment}>
-                    {comment.products.title}
-                  </Link>
-                </p>
-                <p className={styles.comment}>{comment.comment}</p>
-                <div className={styles.buttons}>
-                  <button onClick={() => handleEditClick(comment)} className={styles.button}>Rediger</button>
-                  <button onClick={() => handleDeleteClick(comment.id)} className={styles.button}>Slet</button>
+            {userReviews.map(review => (
+              <li key={review.id} className={styles.reviewItem}>
+                <div>
+                  <h4>{review.title}</h4>
+                  <p>{review.content}</p>
                 </div>
-
-                {/* Redigeringsformular vises kun for den aktuelle kommentar */}
-                {isEditing && editingCommentId === comment.id && (
-                  <form onSubmit={handleEditSubmit} className={styles.editForm}>
-                    <textarea
-                      value={editedComment}
-                      onChange={handleEditChange}
-                      required
-                    />
-                    <button type="submit">Gem ændringer</button>
-                    <button type="button" onClick={() => setIsEditing(false)}>Annuller</button>
-                  </form>
-                )}
+                <button onClick={() => handleEditClick(review)} className={styles.button}>Rediger</button>
+                <button onClick={() => handleDeleteClick(review.id)} className={styles.button}>Slet</button>
               </li>
             ))}
           </ul>
         ) : (
-          <p>Du har ingen kommentarer endnu.</p>
+          <p>Du har ikke skrevet nogen anmeldelser endnu.</p>
         )}
       </div>
+      {isEditing && (
+        <div className={styles.editReview}>
+          <h3>Rediger anmeldelse</h3>
+          <form onSubmit={handleEditSubmit}>
+            <textarea value={editedReview} onChange={handleEditChange} />
+            <button type="submit" className={styles.button}>Gem</button>
+            <button type="button" onClick={() => setIsEditing(false)} className={styles.button}>Annuller</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
