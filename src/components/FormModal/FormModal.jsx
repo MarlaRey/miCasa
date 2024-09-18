@@ -27,7 +27,7 @@ const FormModal = ({ isVisible, onClose, onSubmit, reviewData, setReviewData }) 
             </button>
             </div>
           <div className={styles.formGroup}>
-      
+
             <input
               type="text"
               name="title"
@@ -77,7 +77,7 @@ const FormModal = ({ isVisible, onClose, onSubmit, reviewData, setReviewData }) 
               required
             />
           </div>
-          <button type="submit">Send Anmeldelse</button>
+          <button className={styles.buttonBox} type="submit">Send Anmeldelse</button>
         </form>
       
       </div>

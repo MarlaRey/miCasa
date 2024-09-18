@@ -7,7 +7,7 @@
     width: 99.9vw;
     height: 500px;
     position: relative;
-    margin-top: -2rem;
+    margin-top: -1rem;
   }
   
   .reviewForm {
@@ -51,11 +51,12 @@
     cursor: pointer;
   }
   .buttonBox{
+    margin-left: auto;
     display: flex;
     justify-content: flex-end;
   }
   .closeButton {
-
+background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
