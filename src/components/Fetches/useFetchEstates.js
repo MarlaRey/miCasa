@@ -15,7 +15,7 @@ const useFetchEstates = (limit = 1000, sortOption = 'created_at', filterType = '
         let query = supabase
           .from('estates')
           .select(`
-            id, address, price, num_rooms, floor_space, city_id, type_id, energy_label_id,
+            id, address, price, num_rooms, floor_space, city_id, type_id, energy_label_id, description,
             cities ( name, zipcode ), 
             estate_types ( name ), 
             energy_labels ( letter, color ),
@@ -57,7 +57,7 @@ const useFetchEstates = (limit = 1000, sortOption = 'created_at', filterType = '
         // Tilføj data fra relationstabellerne til hver ejendom
         const estatesWithDetails = data.map((estate) => {
           // Hent det primære billede fra relationstabellen
-          const primaryImage = estate.estate_image_rel?.[0]?.images?.image_url || 'src/assets/img/slideshow/slide-5.jpg';
+          const primaryImage = estate.estate_image_rel?.[0]?.images?.image_url ;
 
           return {
             ...estate,

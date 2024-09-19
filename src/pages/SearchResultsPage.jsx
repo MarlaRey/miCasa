@@ -2,41 +2,35 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import EstateCard from '../components/Home_EstateCard/EstateCard';
 import styles from './SearchResultPage.module.scss';
-import supabase from '../../supabase';
+import useFetchEstates from '../components/Fetches/useFetchEstates'; // Custom hook til at hente boliger 
 
 const SearchResultsPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('query') || ''; // Hent søgeordet fra URL'en
 
+  const { estates, loading, error } = useFetchEstates(); // Kald custom hook korrekt
   const [filteredEstates, setFilteredEstates] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFilteredEstates = async () => {
-      setLoading(true);
-      // Søg i databasen efter boliger der matcher søgeordet
-      const { data, error } = await supabase
-        .from('estates')
-        .select('*')
-        .ilike('description', `%${searchQuery}%`); // Bruger ilike for case-insensitiv søgning
-
-      if (error) {
-        console.error('Error fetching estates:', error);
-        setFilteredEstates([]);
-      } else {
-        setFilteredEstates(data);
-      }
-      setLoading(false);
-    };
-
-    if (searchQuery) {
-      fetchFilteredEstates(); // Kald søgefunktionen, hvis der er et søgeord
+    // Filtrer ejendommene baseret på søgeordet og flere felter
+    if (estates) {
+      const filtered = estates.filter((estate) =>
+        estate.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        estate.city_name?.toLowerCase().includes(searchQuery.toLowerCase()) || // Søg i bynavn
+        estate.estate_type_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||// Søg i ejendomstype
+        estate.description?.toLowerCase().includes(searchQuery.toLowerCase()) // Søg i ejendomstype
+      );
+      setFilteredEstates(filtered);
     }
-  }, [searchQuery]);
+  }, [searchQuery, estates]); // Opdater filtreringen når søgeordet eller ejendommene ændres
 
   if (loading) {
     return <p>Loading search results...</p>;
+  }
+
+  if (error) {
+    return <p>Der opstod en fejl: {error}</p>;
   }
 
   if (filteredEstates.length === 0) {
