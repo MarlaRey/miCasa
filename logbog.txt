@@ -72,3 +72,6 @@ Imorgen skal jeg gøre forsiden responsiv, forhåentligt have held med en søgef
 Det er torsdag morgen. jeg har lige fået gjort forsiden responsiv og kan nu erklære den færdig. det er skønt, for det var jeg spændt på hvor drilsk det ville være med alle de importerede elemeter og absolut positionering her og der, men det gik lettere end forventet. Den slags oplevelser samler jeg på her på 2. sidste dag. Nu må det være tid til at få minside til at sidde lige i skabet.
 
 Det går godt idag. Jeg er godt med. Er dg lidt træt af de fimsede farver og synes ikke min "du er logget ind som..." -spiller oppe i headeren. Den irriterer mit øje, men jeg ved ikke hvordan jeg kan gøre det anderledes. Synes det er vigtigt at man kan lolgge ud hutigt uden at skulle ind på min side.
+
+DATABASE FIXFAX:
+jeg tilføjer en kolonne til contact_messages tabellen der hedder email, da det er  nødvendigt at kunne vende tilbage til en kunde når man har fet en besked, og det er ikke muligt uden kontaktoplysninger.

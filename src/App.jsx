@@ -5,10 +5,11 @@ import Home from './pages/Home';
 import EstateDetails from './pages/EstateDetails';
 import EstateList from './pages/EstateList';
 import Login from './pages/Login';
-import Contact from './pages/Contact';
 import PageLayout from './components/PageLayout/PageLayout';
 import { AuthProvider } from './providers/AuthContext'; // Importér AuthProvider
 import MinSide from './pages/MinSide';
+import ContactPage from './pages/ContactPage';
+import MessageReceived from './pages/MessageReceived';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -21,7 +22,8 @@ function App() {
             <Route path="/boliger" element={<EstateList />} />
             <Route path="/boliger/:id" element={<EstateDetails />} />
             <Route path="/login" element={<Login setUser={setUser} />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/kontakt" element={<ContactPage />} />
+            <Route path="/besked-modtaget" element={<MessageReceived />} />
             <Route path="/minside" element={<MinSide />} />
           </Routes>
         </PageLayout>

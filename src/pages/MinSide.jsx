@@ -107,49 +107,8 @@ const MinSide = () => {
 
 
       </div>
-      {/* Liked Estates */}
-      <div className={styles.mainContainer}>
-      <div className={styles.likedEstatesList}>
-        <h2>Mine favoritter</h2>
-        {likedEstates.length > 0 ? (
-          <ul>
-            {likedEstates.map(estate => (
-              <li key={estate.id}>
-                 <button onClick={() => handleUnlike(estate.id)}>Fjern</button>
-                <Link to={`/boliger/${estate.id}`}>{estate.address}</Link>
-               
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Du har ikke liket nogen boliger endnu.</p>
-        )}
-      </div>
-
-      {/* User Reviews */}
-      <div className={styles.reviewsList}>
-        <h2>Mine anmeldelser</h2>
-        {userReviews.length > 0 ? (
-          <ul>
-            {userReviews.map(review => (
-              <li key={review.id}>
-                <h4>{review.title}</h4>
-                <p>{review.content}</p>
-                <p>Stjerner: {review.num_stars}</p>
-                <div  className={styles.reviewButtons}>
-                <button onClick={() => handleEditClick(review)}>Rediger</button>
-                <button onClick={() => handleDeleteClick(review.id)}>Slet</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Du har ikke skrevet nogen anmeldelser endnu.</p>
-        )}
-      </div>
-      </div>
-      {/* Edit Review Form */}
-      {isEditing && (
+            {/* Edit Review Form */}
+            {isEditing && (
         <div className={styles.formContainer}>
 
           <form  onSubmit={handleEditSubmit} className={styles.editForm}>
@@ -194,6 +153,48 @@ const MinSide = () => {
           </form>
         </div>
       )}
+      {/* Liked Estates */}
+      <div className={styles.mainContainer}>
+      <div className={styles.likedEstatesList}>
+        <h2>Mine favoritter</h2>
+        {likedEstates.length > 0 ? (
+          <ul>
+            {likedEstates.map(estate => (
+              <li key={estate.id}>
+                 <button onClick={() => handleUnlike(estate.id)}>Fjern</button>
+                <Link to={`/boliger/${estate.id}`}>{estate.address}</Link>
+               
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Du har ikke liket nogen boliger endnu.</p>
+        )}
+      </div>
+
+      {/* User Reviews */}
+      <div className={styles.reviewsList}>
+        <h2>Mine anmeldelser</h2>
+        {userReviews.length > 0 ? (
+          <ul>
+            {userReviews.map(review => (
+              <li key={review.id}>
+                <h4>{review.title}</h4>
+                <p>{review.content}</p>
+                <p>Stjerner: {review.num_stars}</p>
+                <div  className={styles.reviewButtons}>
+                <button onClick={() => handleEditClick(review)}>Rediger</button>
+                <button onClick={() => handleDeleteClick(review.id)}>Slet</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Du har ikke skrevet nogen anmeldelser endnu.</p>
+        )}
+      </div>
+      </div>
+
     </div>
   );
 };
