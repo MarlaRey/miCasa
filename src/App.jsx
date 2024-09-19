@@ -11,21 +11,22 @@ import MinSide from './pages/MinSide';
 import ContactPage from './pages/ContactPage';
 import MessageReceived from './pages/MessageReceived';
 import SearchResultsPage from './pages/SearchResultsPage';
+import ReviewReceived from './pages/ReviewReceived';
 
 function App() {
-  const [user, setUser] = useState(null);
   return (
     <AuthProvider>
       <Router>
-        <PageLayout user={user} setUser={setUser}>
+        <PageLayout >
           <Routes>
-            <Route path="/" element={<Home user={user} setUser={setUser} />} />
+            <Route path="/" element={<Home/>} />
             <Route path="/boliger" element={<EstateList />} />
             <Route path="/search" element={<SearchResultsPage />} /> 
             <Route path="/boliger/:id" element={<EstateDetails />} />
-            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/kontakt" element={<ContactPage />} />
             <Route path="/besked-modtaget" element={<MessageReceived />} />
+            <Route path="/anmeldelse-modtaget" element={<ReviewReceived />} />
             <Route path="/minside" element={<MinSide />} />
           </Routes>
         </PageLayout>

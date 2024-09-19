@@ -14,7 +14,7 @@ const Header = () => {
       {isLoggedIn && user && ( // Tjek om brugeren er logget ind og brugeren eksisterer
         <nav className={styles.userInfo}>
           <div className={styles.userLog}>
-            <span className={styles.username}>Du er logget ind som: {user.email}</span> 
+            <span className={styles.username}><p>Du er logget ind som {user.email}</p></span> 
             <button onClick={logout} className={styles.logoutButton}>Logout</button>
           </div>
         </nav>

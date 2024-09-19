@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './NavigationMenu.module.scss';
 import { AuthContext } from '../../providers/AuthContext';
@@ -14,6 +14,11 @@ const NavigationMenu = () => {
       navigate(`/search?query=${encodeURIComponent(query)}`); // Navigerer til en ny rute med søgeordet
     }
   };
+
+  // Scroll til toppen, når ruten ændrer sig
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <nav className={styles.nav}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importér useNavigate for at omdirigere
 import supabase from '../../../supabase';
 import styles from './ReviewSection.module.scss';
 import { AuthContext } from '../../providers/AuthContext';
@@ -16,6 +17,7 @@ const ReviewSection = () => {
     estate_id: ''
   });
   const [isButtonClicked, setIsButtonClicked] = useState(false); // State til at holde styr på knapklik
+  const navigate = useNavigate(); // Opret navigate-funktionen
 
   useEffect(() => {
     const loadReviews = async () => {
@@ -38,7 +40,7 @@ const ReviewSection = () => {
     if (reviews.length > 0) {
       const interval = setInterval(() => {
         setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-      }, 8000); // Skift hver 5. sekund
+      }, 8000); // Skift hver 8. sekund
 
       return () => clearInterval(interval);
     }
@@ -87,12 +89,15 @@ const ReviewSection = () => {
       setReviewData({ title: '', content: '', num_stars: '', estate_id: '' });
       setIsFormVisible(false);
       setIsButtonClicked(false); // Reset knapklik state
+
+      // Omdiriger til tak-siden
+      navigate('/anmeldelse-modtaget');
     }
-  }, [user, reviewData]);
+  }, [user, reviewData, navigate]);
 
   return (
     <section className={styles.reviewsSection}>
-       <h2 className={styles.h}>Det siger vores kunder</h2>
+      <h2 className={styles.h}>Det siger vores kunder</h2>
       <div className={styles.reviewContainer}>
         {reviews.length > 0 ? (
           <div
