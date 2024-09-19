@@ -10,6 +10,7 @@ import { AuthProvider } from './providers/AuthContext'; // Importér AuthProvide
 import MinSide from './pages/MinSide';
 import ContactPage from './pages/ContactPage';
 import MessageReceived from './pages/MessageReceived';
+import SearchResultsPage from './pages/SearchResultsPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home user={user} setUser={setUser} />} />
             <Route path="/boliger" element={<EstateList />} />
+            <Route path="/search" element={<SearchResultsPage />} /> 
             <Route path="/boliger/:id" element={<EstateDetails />} />
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/kontakt" element={<ContactPage />} />

@@ -2,6 +2,7 @@
 .imageSection {
   position: relative; /* Så vi kan overlappe main */
   z-index: 1;
+  padding-top: 8rem;
 
   img {
     width: 100vw;

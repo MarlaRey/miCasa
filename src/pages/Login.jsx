@@ -26,9 +26,11 @@ const Login = () => {
     } else {
       setError(error ? error.message : "Login mislykkedes.");
     }
+    setTimeout(() => {
+      setError("");
+      setSuccess("");
+    }, 3000); // Timeout for succes- og fejlbeskeder
   };
-  
-  
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -37,14 +39,16 @@ const Login = () => {
       setError(error.message);
       setSuccess("");
     } else {
-      setSuccess("Registreringen lykkedes. Du kan nu logge ind.");
+      setSuccess("Super, du er oprettet. Du kan nu logge ind.");
+      setEmail(registerEmail); // Overfør registreret email til login-feltet
       setRegisterEmail("");
       setRegisterPassword("");
-      setTimeout(() => {
-        setSuccess("");
-        navigate('/login');
-      }, 3000);
+      setIsRegistering(false); // Skift til login-form med det samme
     }
+    setTimeout(() => {
+      setError("");
+      setSuccess("");
+    }, 3000); // Timeout for succes- og fejlbeskeder
   };
 
   return (
@@ -108,7 +112,7 @@ const Login = () => {
                 required
               />
             </div>
-            <button type="submit" className={styles.button}>Opret</button>
+            <button type="submit" className={styles.button} >Opret</button>
             <button
               type="button"
               className={styles.button}

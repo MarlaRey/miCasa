@@ -16,6 +16,7 @@ const EstateDetails = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [galleryImages, setGalleryImages] = useState([]);
+  
 
   const calculateDaysOnMarket = (createdAt) => {
     const currentDate = new Date();
@@ -78,7 +79,8 @@ const EstateDetails = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!estate) return <p>No estate found</p>;
-
+    // Formater prisen med tusindtalsseparator
+    const formattedPrice = estate.price.toLocaleString('da-DK');
   return (
     <div className={styles.container}>
       <div className={styles.imageSection}>
@@ -113,7 +115,7 @@ const EstateDetails = () => {
 
           <div className={styles.div3}>
             <div>
-              <p>Kontantpris: </p><h1>{estate.price} DKK</h1>
+              <p>Kontantpris: </p><h1>{formattedPrice} DKK</h1>
             </div>
             <p>Udbetaling: {estate.payout} DKK</p>
             <p>Ejerudgift pr. måned: {estate.cost} DKK</p>
@@ -136,7 +138,7 @@ const EstateDetails = () => {
           </div>
 
           <div className={styles.div6}>
-            <p>Kontantpris: {estate.price} DKK</p>
+            <p>Kontantpris: {formattedPrice} DKK</p>
             <p>Udbetaling: {estate.payout} DKK</p>
             <p>Brutto ex. ejerudgift: {estate.gross} DKK</p>
             <p>Netto ex. ejerudgift: {estate.net} DKK</p>

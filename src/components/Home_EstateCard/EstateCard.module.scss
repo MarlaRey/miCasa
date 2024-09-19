@@ -17,7 +17,7 @@
 .cardImage {
   padding: 1rem;
   width: 100%;
-  height: 271px;
+  height: 400px;
   object-fit: cover;
   :hover {
     opacity: 0.8;
@@ -32,6 +32,7 @@
   .headline{
     display: flex;
     justify-content: space-between;
+    margin-bottom: -2rem;
     h2:nth-child(2){
 
       padding: 0.5rem 1rem;
@@ -39,11 +40,18 @@
       color: #fff;
     }
   }
+  .price{
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+  }
 }
 
 .cardContent h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .cardContent p {

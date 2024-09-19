@@ -1,8 +1,9 @@
 .container {
-   margin-top: 2rem;
+   margin-top: 8rem;
    position: relative;
    min-height: 100vh;
    padding: 2rem;
+   padding-top: 8rem;
    width: 100%; 
    max-width: 1900px; 
    margin: 0 auto; 
@@ -10,7 +11,7 @@
    .filters {
      position: absolute;  // Sørger for, at filterne kan placeres relativt til .container
      right: 12rem;  // Juster afstand fra højre kant
-     top: 4rem;  // Juster afstand fra toppen af .container
+     top: 10rem;  // Juster afstand fra toppen af .container
      display: flex;
      gap: 1rem;
      @media (max-width: 1850px) {

@@ -38,7 +38,7 @@ const ReviewSection = () => {
     if (reviews.length > 0) {
       const interval = setInterval(() => {
         setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-      }, 5000); // Skift hver 5. sekund
+      }, 8000); // Skift hver 5. sekund
 
       return () => clearInterval(interval);
     }

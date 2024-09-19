@@ -10,8 +10,10 @@ const EstateCard = ({ estate, isHome }) => {
   
   const energyLabelStyle = {
     backgroundColor: estate.energy_label_color
-  } // Bruger farvekoden fra estate objektet
-  
+  // Bruger farvekoden fra estate objektet
+  } 
+    // Formater prisen med tusindtalsseparator
+    const formattedPrice = estate.price.toLocaleString('da-DK');
   
     return (
     <div className={cardClass}> 
@@ -30,7 +32,7 @@ const EstateCard = ({ estate, isHome }) => {
         <p>{estate.estate_type_name}</p> 
         
         <p>{estate.num_rooms} værelser | {estate.floor_space} m²</p>
-        <div className={styles.price}><p>{estate.price} DKK</p> </div>
+        <div className={styles.price}><p>{formattedPrice} DKK</p> </div>
         
       </div>
     </div>
