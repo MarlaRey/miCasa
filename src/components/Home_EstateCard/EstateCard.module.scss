@@ -27,7 +27,18 @@
 
 .cardContent {
   padding: 1rem;
-  background-color: #fff;
+
+  width: 100%;
+  .headline{
+    display: flex;
+    justify-content: space-between;
+    h2:nth-child(2){
+
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: #fff;
+    }
+  }
 }
 
 .cardContent h3 {
@@ -38,6 +49,9 @@
 .cardContent p {
   margin: 0.5rem 0;
 }
+
+
+
 
 /* Special styling for Home page */
 .homeCard:nth-child(2) {

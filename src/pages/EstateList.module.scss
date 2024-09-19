@@ -10,7 +10,7 @@
    .filters {
      position: absolute;  // Sørger for, at filterne kan placeres relativt til .container
      right: 12rem;  // Juster afstand fra højre kant
-     top: 2rem;  // Juster afstand fra toppen af .container
+     top: 4rem;  // Juster afstand fra toppen af .container
      display: flex;
      gap: 1rem;
      @media (max-width: 1850px) {
@@ -22,6 +22,7 @@
      
    }
    .filters select {
+
       padding: 0.5rem 1rem;  // Tilføj ekstra padding
       border-radius: 8px;  // Rund hjørnerne
       border: 1px solid #ccc;  // Tilføj en let grå kant
@@ -41,7 +42,7 @@
       outline: none;  // Fjern standard outline ved fokus
     }
    .section {
-      margin-top: 4rem;
+      margin-top: 6rem;
      display: flex;
      flex-wrap: wrap;
      gap: 2rem;

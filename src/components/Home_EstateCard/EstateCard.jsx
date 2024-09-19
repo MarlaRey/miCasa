@@ -8,35 +8,30 @@ const EstateCard = ({ estate, isHome }) => {
   const cardClass = isHome ? `${styles.card} ${styles.homeCard}` : styles.card; 
   // Dynamisk tildeling af CSS-klasser. Hvis vi er på forsiden, tilføjes både '.card' og '.homeCard' klasserne.
   
-  return (
+  const energyLabelStyle = {
+    backgroundColor: estate.energy_label_color
+  } // Bruger farvekoden fra estate objektet
+  
+  
+    return (
     <div className={cardClass}> 
+    <Link to={`/boliger/${estate.id}`} className={styles.detailsLink}>
       <img 
         src={estate.image_url} 
         alt={`Image of ${estate.address}`} 
         className={styles.cardImage} 
-      /> 
+      />   
+    </Link> 
       
       <div className={styles.cardContent}>
+        <div className={styles.headline}><h2>{estate.address}</h2>  <h2 style={energyLabelStyle}>{estate.energy_label_letter}</h2> </div>
         
-        <h3>{estate.address}</h3> 
-
+        <p>{estate.city_zipcode} {estate.city_name}</p> 
+        <p>{estate.estate_type_name}</p> 
         
-        <p>{estate.price} DKK</p> 
-
+        <p>{estate.num_rooms} værelser | {estate.floor_space} m²</p>
+        <div className={styles.price}><p>{estate.price} DKK</p> </div>
         
-        <p>{estate.city}</p> 
-
-        
-        <p>{estate.floor_space} m²</p> 
-
-        
-        <p>{estate.energy_label_id}</p> 
-
-        
-        <Link to={`/boliger/${estate.id}`} className={styles.detailsLink}>
-          Se detaljer
-        </Link> 
-
       </div>
     </div>
   );

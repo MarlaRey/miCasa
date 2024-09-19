@@ -1,78 +1,87 @@
 import { useState, useEffect } from 'react';
-import supabase from '../../../supabase'; // Importerer Supabase-klienten for at kunne tilgå databasen
+import supabase from '../../../supabase';
 
-// Custom hook til at hente boliger med filtrering og sortering
-const useFetchEstates = (limit = 100, sortOption = 'price_asc', filterType = '') => {
-  // State hooks til at håndtere boliger, loading-status og fejl
-  const [estates, setEstates] = useState([]); // Initialiserer state for boliger som en tom array
-  const [loading, setLoading] = useState(true); // Initialiserer state for loading som true
-  const [error, setError] = useState(null); // Initialiserer state for fejl som null
+const useFetchEstates = (limit = 1000, sortOption = 'created_at', filterType = '') => {
+  const [estates, setEstates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // useEffect hook til at hente data, når komponenten mountes eller når dependencies ændres
   useEffect(() => {
-    // Asynkron funktion til at hente boliger fra Supabase
     const fetchEstates = async () => {
       try {
-        // Initial query for at hente data fra 'estates' tabellen
+        setLoading(true);
+
+        // Grundforespørgsel med relationer til cities, estate_types og energy_labels
         let query = supabase
           .from('estates')
-          .select(`id, address, price, floor_space, energy_label_id, city_id, estate_image_rel(image_id, images(image_url)), cities(name)`)
-          .limit(limit); // Begrænser antallet af resultater baseret på 'limit' parameteren
+          .select(`
+            id, address, price, num_rooms, floor_space, city_id, type_id, energy_label_id,
+            cities ( name, zipcode ), 
+            estate_types ( name ), 
+            energy_labels ( letter, color ),
+            estate_image_rel ( 
+              image_id, 
+              images ( image_url )
+            )
+          `)
+          .limit(limit);
 
-        // Anvend filter hvis filterType ikke er tom
+        // Filtrer efter ejendomstype, hvis angivet
         if (filterType) {
-          query = query.eq('type_id', filterType); // Filtrerer resultaterne efter 'type_id'
+          query = query.eq('type_id', filterType);
         }
 
-        // Anvend sortering baseret på sortOption
+        // Sortering baseret på valgt option
         switch (sortOption) {
           case 'price_asc':
-            query = query.order('price', { ascending: true }); // Sorterer efter pris i stigende rækkefølge
+            query = query.order('price', { ascending: true });
             break;
           case 'price_desc':
-            query = query.order('price', { ascending: false }); // Sorterer efter pris i faldende rækkefølge
+            query = query.order('price', { ascending: false });
             break;
           case 'floor_space':
-            query = query.order('floor_space', { ascending: false }); // Sorterer efter kvadratmeter i faldende rækkefølge
+            query = query.order('floor_space', { ascending: false });
             break;
-          case 'created_at_desc':
-            query = query.order('created_at', { ascending: false }); // Sorterer efter oprettelsesdato i faldende rækkefølge
+          case 'created_at':
+            query = query.order('created_at', { ascending: false });
             break;
           default:
-            query = query.order('price', { ascending: true }); // Standard sortering: efter pris i stigende rækkefølge
+            query = query.order('created_at', { ascending: false });
             break;
         }
 
-        // Udfør forespørgslen og håndter resultater
         const { data, error } = await query;
 
-        if (error) throw error; // Kast fejl, hvis der er en
+        if (error) throw error;
 
-        // Map boligerne til at inkludere et billede og bynavn
-        const estatesWithImages = data.map(estate => {
-          // Find det primære billede for hver bolig
-          const primaryImage = estate.estate_image_rel.find(rel => rel.images?.image_url);
+        // Tilføj data fra relationstabellerne til hver ejendom
+        const estatesWithDetails = data.map((estate) => {
+          // Hent det primære billede fra relationstabellen
+          const primaryImage = estate.estate_image_rel?.[0]?.images?.image_url || 'src/assets/img/slideshow/slide-5.jpg';
+
           return {
             ...estate,
-            image_url: primaryImage ? primaryImage.images.image_url : 'src/assets/img/slideshow/slide-5.jpg', // Sæt standardbillede hvis ingen findes
-            city: estate.cities?.name // Tilføj bynavn
+            city_name: estate.cities?.name, // Tilføj bynavnet
+            city_zipcode: estate.cities?.zipcode, // Tilføj bynavnet
+            estate_type_name: estate.estate_types?.name, // Tilføj ejendomstype
+            energy_label_letter: estate.energy_labels?.letter, // Tilføj energimærkning
+            energy_label_color: estate.energy_labels?.color, // Tilføj energimærkning
+            image_url: primaryImage, // Standardbillede, hvis intet billede er knyttet
           };
         });
 
-        setEstates(estatesWithImages); // Opdater state med boligerne
+        setEstates(estatesWithDetails);
       } catch (error) {
-        setError(error); // Opdater state med fejl
+        setError(error.message);
       } finally {
-        setLoading(false); // Indstil loading-status til false uanset om der er fejl eller ej
+        setLoading(false);
       }
     };
 
-    fetchEstates(); // Kald funktionen for at hente data
+    fetchEstates();
+  }, [limit, sortOption, filterType]);
 
-  }, [limit, sortOption, filterType]); // Afhængigheder: Effekt hooken kører igen hvis en af disse ændres
-
-  // Returner boliger, loading-status og fejl
   return { estates, loading, error };
 };
 
-export default useFetchEstates; // Eksporter hooken for at kunne bruge den i andre komponenter
+export default useFetchEstates;

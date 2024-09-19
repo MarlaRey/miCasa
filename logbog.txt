@@ -78,3 +78,8 @@ jeg tilføjer en kolonne til contact_messages tabellen der hedder email, da det 
 
 STYLING:
 Jeg har måske lige ændret lidt på stylingen hist og her for at gøre udtrykket lidt mere let. Især i formsene har jeg lige ændret lidt, det bliver hurtigt så tungt og træls med sådan en solid border rundt om alting. Men jeg synes alligevel jeg har formået at vise at jeg evner at følge et designudkast, idet jeg har lavet headergrafikken som ønsket og det lille hop på card 2 på fordisen og emplyees-delens hovereffekt også på forsiden og generelt i grundtræk fulgt formen.
+
+Det er middag og jeg føler jeg får sat flueben ved ngle afgørende ting. Det føles godt. Jeg vil nu kaste mig over at få cardsene til at se ud præcist som i udkastet med de helt rette informationer. Den der søgefunktion står pt allerbagerst i køren, den kommer hvis tid er.
+
+MERE SUPABASE FIXFAX:
+for at kunne lave mine energylabels på den fede måde, går jeg ind i supabase og tilføjer en farvekode til hvert mærke. Det gør at jeg kan bruge den hexkode inde i mine cards. farvekoderne henter jeg fra nettet og samler op med min smarte eyedropper-tool-app.
