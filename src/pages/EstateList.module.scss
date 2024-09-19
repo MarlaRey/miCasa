@@ -3,9 +3,9 @@
    position: relative;
    min-height: 100vh;
    padding: 2rem;
-   width: 100%;  // Brug 100% bredde i stedet for en fast bredde
-   max-width: 1900px;  // Maksimal bredde for store skærme
-   margin: 0 auto;  // Centrer containeren på siden
+   width: 100%; 
+   max-width: 1900px; 
+   margin: 0 auto; 
  
    .filters {
      position: absolute;  // Sørger for, at filterne kan placeres relativt til .container
@@ -13,8 +13,11 @@
      top: 2rem;  // Juster afstand fra toppen af .container
      display: flex;
      gap: 1rem;
-     @media (max-width: 850px) {
-      right: 1rem;  // Juster afstand fra højre kant
+     @media (max-width: 1850px) {
+     left: 3rem;
+      right: 0;
+      margin: auto; 
+      margin-right: 1rem;
     }
      
    }
@@ -24,9 +27,13 @@
       border: 1px solid #ccc;  // Tilføj en let grå kant
       font-size: 1rem;  // Øg skriftstørrelsen, hvis nødvendigt
       background-color: #fff;  // Hvid baggrundsfarve
-      appearance: none;  // Fjern standard styling i nogle browsere
+      width: 220px;
       transition: border-color 0.3s ease;  // Tilføj en overgangseffekt for border-farve
       cursor: pointer;  // Tilføj cursor pointer for at indikere klikbarhed
+      @media (max-width: 650px) {
+        width: 40%;
+ 
+       }
     }
   
     .filters select:focus {
@@ -43,7 +50,7 @@
       height: 350px;
      }
  
-     @media (max-width: 850px) {
+     @media (max-width: 950px) {
        gap: 1rem;
        justify-content: center;  // Sørg for centrering på mobile enheder også
      }

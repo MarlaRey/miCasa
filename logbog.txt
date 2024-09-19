@@ -75,3 +75,6 @@ Det går godt idag. Jeg er godt med. Er dg lidt træt af de fimsede farver og sy
 
 DATABASE FIXFAX:
 jeg tilføjer en kolonne til contact_messages tabellen der hedder email, da det er  nødvendigt at kunne vende tilbage til en kunde når man har fet en besked, og det er ikke muligt uden kontaktoplysninger.
+
+STYLING:
+Jeg har måske lige ændret lidt på stylingen hist og her for at gøre udtrykket lidt mere let. Især i formsene har jeg lige ændret lidt, det bliver hurtigt så tungt og træls med sådan en solid border rundt om alting. Men jeg synes alligevel jeg har formået at vise at jeg evner at følge et designudkast, idet jeg har lavet headergrafikken som ønsket og det lille hop på card 2 på fordisen og emplyees-delens hovereffekt også på forsiden og generelt i grundtræk fulgt formen.
