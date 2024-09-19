@@ -26,14 +26,14 @@ const Footer = () => {
 
       if (error) throw error;
 
-      setSuccess('Super! Du vil nu modtage vores nyhedsbreve');
+      setSuccess('Dejligt du vil følge med! Du vil nu modtage vores nyhedsbreve');
       setEmail('');
       setError('');
 
       // Hide success message after 3 seconds
       setTimeout(() => {
         setSuccess('');
-      }, 3000);
+      }, 5000);
     } catch (error) {
       setError('Der skete en fejl, prøv igen.');
     }
