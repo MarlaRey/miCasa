@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../../supabase';
 import styles from './EstateDetail.module.scss';
 
-// Import vector icons
 import imgVec from '../assets/img/icons/imgVec.png';
 import floorVec from '../assets/img/icons/floorVec.png';
 import locationVec from '../assets/img/icons/locationVec.png';
-import LikeButton from '../components/LikeButton/LikeButton'; // Importer LikeButton
+import LikeButton from '../components/LikeButton/LikeButton';
+import ImageModal from '../components/ImageModal/ImageModal';
 
 const EstateDetails = () => {
   const { id } = useParams();
   const [estate, setEstate] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [galleryImages, setGalleryImages] = useState([]);
 
   const calculateDaysOnMarket = (createdAt) => {
     const currentDate = new Date();
@@ -32,7 +34,8 @@ const EstateDetails = () => {
           .select(`
             *,
             estate_types ( name ),
-            estate_image_rel ( images ( image_url ) ),
+            estate_image_rel ( id, image_id, is_primary, images ( image_url ) ),
+            energy_labels ( letter, color ),
             cities ( name, zipcode ),
             employees ( id, firstname, lastname, position, image_url, phone, email )
           `)
@@ -41,9 +44,9 @@ const EstateDetails = () => {
 
         if (error) throw error;
 
-        console.log('Fetched Estate Data:', data); // Tilføj dette
+        console.log('Fetched Estate Data:', data);
 
-        const primaryImage = data.estate_image_rel?.[0]?.images?.image_url || 'src/assets/img/slideshow/slide-5.jpg';
+        const primaryImage = data.estate_image_rel?.find(img => img.is_primary)?.images?.image_url || 'src/assets/img/slideshow/slide-5.jpg';
 
         const estateWithDetails = {
           ...data,
@@ -55,6 +58,13 @@ const EstateDetails = () => {
         };
 
         setEstate(estateWithDetails);
+
+        // Fetch gallery images
+        const galleryImages = data.estate_image_rel
+          .filter(img => !img.is_primary)
+          .map(img => img.images.image_url);
+        setGalleryImages(galleryImages);
+
       } catch (error) {
         setError(error.message);
       } finally {
@@ -85,7 +95,7 @@ const EstateDetails = () => {
           </div>
 
           <div className={styles.div2}>
-            <div className={styles.iconWrapper}>
+            <div className={styles.iconWrapper} onClick={() => setIsModalOpen(true)}>
               <img src={imgVec} alt="Image" />
             </div>
             <div className={styles.iconWrapper}>
@@ -96,15 +106,15 @@ const EstateDetails = () => {
             </div>
             <div className={styles.iconWrapper}>
               <div className={styles.heart}>
-              <LikeButton estateId={estate.id} />
+                <LikeButton estateId={estate.id} />
               </div>
             </div>
-
           </div>
 
           <div className={styles.div3}>
             <div>
-            <p>Kontantpris: </p><h1> {estate.price} DKK</h1></div>
+              <p>Kontantpris: </p><h1>{estate.price} DKK</h1>
+            </div>
             <p>Udbetaling: {estate.payout} DKK</p>
             <p>Ejerudgift pr. måned: {estate.cost} DKK</p>
           </div>
@@ -121,7 +131,7 @@ const EstateDetails = () => {
             <p>Kælderareal: {estate.basement_space} m²</p>
             <p>Byggeår: {estate.year_construction}</p>
             <p>Ombygget: {estate.year_rebuilt}</p>
-            <p>Energimærke: {estate.energy_label_id}</p>
+            <p>Energimærke: {estate.energy_labels?.letter}</p>
             <p>Liggetid: {estate.days_on_market} dage</p>
           </div>
 
@@ -147,6 +157,8 @@ const EstateDetails = () => {
           </div>
         </section>
       </main>
+
+      <ImageModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} images={galleryImages} />
     </div>
   );
 };

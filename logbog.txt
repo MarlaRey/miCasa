@@ -83,3 +83,6 @@ Det er middag og jeg føler jeg får sat flueben ved ngle afgørende ting. Det f
 
 MERE SUPABASE FIXFAX:
 for at kunne lave mine energylabels på den fede måde, går jeg ind i supabase og tilføjer en farvekode til hvert mærke. Det gør at jeg kan bruge den hexkode inde i mine cards. farvekoderne henter jeg fra nettet og samler op med min smarte eyedropper-tool-app.
+
+Teglværket 2
+Jeg opdager også at teglværket 2 ikke har noget primary image, det går jo ikke, så det får jeg rettet i databasen.
