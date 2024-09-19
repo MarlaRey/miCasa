@@ -9,18 +9,12 @@
   gap: 1rem;
   z-index: 0;
   padding: 2rem;
-  @media (max-width: 850px) {
+  @media (max-width: 950px) {
     display: none; // Skjul standard menu på mindre skærme
   }
 }
 
-.burgerMenu {
-  display: none;
 
-  @media (max-width: 850px) {
-    display: block; // Vis burger menu på mindre skærme
-  }
-}
 
 .menu {
   list-style: none;

@@ -58,9 +58,8 @@ const Home = () => {
         <SliderGallery />
       </section>
 
-      <section className={styles.estatesSection}>
+     
         <EstateSection isHome={true} />
-      </section>
 
       <ReviewSection />
 

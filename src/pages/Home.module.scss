@@ -1,5 +1,23 @@
 @import '../App.scss';
+.home{  position: relative;
+  min-height: 100vh;
+  transition: opacity 1.5s ease-in-out; /* Transition for fade-in */
 
+.gallerySection{
+  width: 100vw;
+  overflow: hidden;
+  margin-top: -4rem;
+}
+
+}
+.estatesSection{
+margin-bottom: 2rem;
+height: 300px;
+}
+.reviewSection{
+  position: relative;
+  display: block;
+}
 
   h2{
     margin-bottom: 2rem;
@@ -28,26 +46,7 @@
   }
   
 
-  
 
-
-
-.home{  position: relative;
-    min-height: 100vh;
-    transition: opacity 1.5s ease-in-out; /* Transition for fade-in */
-
-    
-.gallerySection{
-    width: 100vw;
-    overflow: hidden;
-    margin-top: -4rem;
-}
-
-}
-.estatesSection{
-  margin-bottom: 2rem;
-  height: 300px;
-}
   
   .homeVisible {
     opacity: 1; /* Fuld synlighed når siden er klar */

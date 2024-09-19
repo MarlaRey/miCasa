@@ -3,7 +3,6 @@
   .modal {
     background-color: $PAYNESGRAY;
     padding: 2rem;
-
     width: 99.9vw;
     height: 500px;
     position: relative;
@@ -14,7 +13,9 @@
     margin-bottom: 15px;
     width: 30%;
     margin: auto;
-
+    @media (max-width: 950px) {
+      width: 90%;
+    }
     
     input{
       border-radius: 4px;

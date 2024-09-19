@@ -4,52 +4,41 @@
   margin-top: 15rem;
   text-align: center;
   margin-bottom: 2rem;
-  position: relative; // Sørg for, at knappen positioneres i forhold til denne sektion
+  position: relative; // Sørger for, at knappen positioneres i forhold til denne sektion
   
   .reviewContainer {
     padding: 2rem;
     background-color: $LAVENDERBLUSH;
     height: 200px;
     border-bottom: 48px solid $ROSAQUARTZ;
-    position: relative; // Sørg for, at knappen placeres korrekt i forhold til denne container
-    
+    position: relative; // Sørger for, at knappen placeres korrekt i forhold til denne container
+    @media (max-width: 850px) {
+      height: 30vh;
+    }
   }
-     // Review slide animation
-
-  
-
-    
 
   .writeReviewButton {
-    position: absolute; // Brug absolut positionering
-    bottom: 0; // Justér dette beløb, så knappen ligger korrekt i forhold til bunden af containeren
-    left: 50%; // Centrér knappen horisontalt
-    transform: translateX(-50%); // Juster for centrering af knappen
-    z-index: 9999; // Sørg for, at knappen er ovenpå alt andet
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); // Justererer centrering af knappen
+    z-index: 9999; // Sørger for, at knappen er ovenpå alt andet
     padding: 0.5rem 1rem;
     height: 48px;
     border: none;
-    background-color: $ROSAQUARTZ; // Brug den ønskede farve
+    background-color: $ROSAQUARTZ;
     color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s ease; // For en glidende overgang
+    transition: background-color 0.3s ease; 
     
     &:hover {
       background-color: $PAYNESGRAY;
-    }
-
-    &:active {
-      background-color: $PAYNESGRAY; // Ændrer farven til PaynesGray ved klik
     }
   }
   .clicked {
     display: none;
   }
 }
-.reviewItem {
-  
-    transition: opacity 1.5s ease-in-out; /* Transition for fade-in */
-  }
   .h{
     @include heading1;
     }

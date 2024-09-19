@@ -1,8 +1,9 @@
 @import '../../App.scss'; // Importér dine variabler her
+
 .burgerMenu {
   display: none;
 
-  @media (max-width: 850px) {
+  @media (max-width: 950px) {
     display: block;
     position: absolute;
     top: 1rem;
@@ -56,6 +57,10 @@
     display: flex;
     justify-content: center;
     padding-top: 4rem;
+
+    @media (max-width: 475px) {
+      width: 50%
+    }
 
     ul {
       list-style: none;
