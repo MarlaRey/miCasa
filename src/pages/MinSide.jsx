@@ -5,64 +5,40 @@ import styles from './MinSide.module.scss';
 import { AuthContext } from '../providers/AuthContext';
 
 const MinSide = () => {
-  const [likedEstates, setLikedEstates] = useState([]); // State til at gemme brugerens likede boliger
-  const [userReviews, setUserReviews] = useState([]); // State til at gemme brugerens anmeldelser
-  const [user, setUser] = useState(null); // State til at gemme den autentificerede bruger
-  const [editingReviewId, setEditingReviewId] = useState(null); // State til at holde styr på, hvilken anmeldelse der redigeres
-  const [editedReview, setEditedReview] = useState(''); // State til at holde den redigerede anmeldelse
-  const [isEditing, setIsEditing] = useState(false); // State til at indikere om der er en anmeldelse i redigering
-  const { isLoggedIn } = useContext(AuthContext); // Henter login-status fra AuthContext
+  const [likedEstates, setLikedEstates] = useState([]);
+  const [userReviews, setUserReviews] = useState([]);
+  const [user, setUser] = useState(null);
+  const [editingReviewId, setEditingReviewId] = useState(null);
+  const [reviewData, setReviewData] = useState({ title: '', content: '', num_stars: 1 });
+  const [isEditing, setIsEditing] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // Henter den autentificerede bruger
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
 
       if (user) {
-        // Henter brugerens likede boliger
-        const { data: favorites, error: favoriteError } = await supabase
+        const { data: favorites } = await supabase
           .from('favorites')
           .select('estate_id')
           .eq('user_id', user.id);
 
-        if (favoriteError) {
-          console.error('Fejl ved hentning af likede boliger', favoriteError);
-          return;
-        }
-
         if (favorites.length > 0) {
           const estateIds = favorites.map(favorite => favorite.estate_id);
-
-          // Henter boliger baseret på ID'er fra likede boliger
-          const { data: estates, error: estateError } = await supabase
+          const { data: estates } = await supabase
             .from('estates')
             .select('*')
             .in('id', estateIds);
-
-          if (estateError) {
-            console.error('Fejl ved hentning af boliger', estateError);
-          } else {
-            setLikedEstates(estates); // Opdaterer state med likede boliger
-          }
+          setLikedEstates(estates);
         }
 
-        // Henter brugerens anmeldelser og tilknytter bolig-titler
-        const { data: reviews, error: reviewsError } = await supabase
+        const { data: reviews } = await supabase
           .from('reviews')
-          .select(`
-            id, content, 
-              title
-            
-          `)
+          .select('id, title, content, num_stars')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
-
-        if (reviewsError) {
-          console.error('Fejl ved hentning af brugerens anmeldelser', reviewsError);
-        } else {
-          setUserReviews(reviews); // Opdaterer state med anmeldelser
-        }
+        setUserReviews(reviews);
       }
     };
 
@@ -71,108 +47,50 @@ const MinSide = () => {
     }
   }, [isLoggedIn]);
 
-  const handleUnlike = async (estateId) => {
-    // Fjerner en bolig fra brugerens likede boliger
-    await supabase
-      .from('favorites')
-      .delete()
-      .eq('user_id', user.id)
-      .eq('estate_id', estateId);
-
-    // Opdaterer listen over likede boliger
-    const { data: favorites, error: favoriteError } = await supabase
-      .from('favorites')
-      .select('estate_id')
-      .eq('user_id', user.id);
-
-    if (favoriteError) {
-      console.error('Fejl ved hentning af opdaterede likede boliger', favoriteError);
-      return;
-    }
-
-    if (favorites.length > 0) {
-      const estateIds = favorites.map(favorite => favorite.estate_id);
-
-      // Henter boliger baseret på opdaterede likede boliger
-      const { data: estates, error: estateError } = await supabase
-        .from('estates')
-        .select('*')
-        .in('id', estateIds);
-
-      if (estateError) {
-        console.error('Fejl ved hentning af boliger', estateError);
-      } else {
-        setLikedEstates(estates); // Opdaterer state med opdaterede likede boliger
-      }
-    } else {
-      setLikedEstates([]); // Ingen likede boliger tilbage
-    }
-  };
-
   const handleEditClick = (review) => {
-    // Starter redigeringsmodus for den valgte anmeldelse
     setEditingReviewId(review.id);
-    setEditedReview(review.content);
+    setReviewData({ title: review.title, content: review.content, num_stars: review.num_stars });
     setIsEditing(true);
   };
 
-  const handleEditChange = (e) => {
-    setEditedReview(e.target.value); // Opdaterer den redigerede anmeldelse
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setReviewData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Opdaterer anmeldelse i databasen
       const { error } = await supabase
         .from('reviews')
-        .update({ content: editedReview })
+        .update(reviewData)
         .eq('id', editingReviewId);
 
-      if (error) {
-        console.error('Fejl ved opdatering af anmeldelse:', error);
-      } else {
+      if (!error) {
         setIsEditing(false);
         setEditingReviewId(null);
-        setEditedReview('');
-        // Henter opdaterede anmeldelser
-        const { data: reviews, error: reviewsError } = await supabase
+        setReviewData({ title: '', content: '', num_stars: 1 });
+        const { data: updatedReviews } = await supabase
           .from('reviews')
-          .select(`
-            id, content, estates (
-              title
-            )
-          `)
+          .select('id, title, content, num_stars')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
-
-        if (reviewsError) {
-          console.error('Fejl ved hentning af opdaterede anmeldelser', reviewsError);
-        } else {
-          setUserReviews(reviews); // Opdaterer state med opdaterede anmeldelser
-        }
+        setUserReviews(updatedReviews);
       }
     } catch (error) {
-      console.error('Fejl ved redigering af anmeldelse:', error);
+      console.error('Fejl ved opdatering af anmeldelse:', error);
     }
   };
 
   const handleDeleteClick = async (reviewId) => {
     if (window.confirm('Er du sikker på, at du vil slette denne anmeldelse?')) {
-      try {
-        // Sletter anmeldelse fra databasen
-        const { error } = await supabase
-          .from('reviews')
-          .delete()
-          .eq('id', reviewId);
+      const { error } = await supabase
+        .from('reviews')
+        .delete()
+        .eq('id', reviewId);
 
-        if (error) {
-          console.error('Fejl ved sletning af anmeldelse:', error);
-        } else {
-          setUserReviews(userReviews.filter(review => review.id !== reviewId)); // Opdaterer state med slettede anmeldelser
-        }
-      } catch (error) {
-        console.error('Fejl ved sletning af anmeldelse:', error);
+      if (!error) {
+        setUserReviews(userReviews.filter(review => review.id !== reviewId));
       }
     }
   };
@@ -182,19 +100,24 @@ const MinSide = () => {
   }
 
   return (
-    <div className={styles.mainContainer}>
+    <div >
+      <div className={styles.velkommen}>
+      <h1>Velkommen til Min side </h1>
+      <p>Du er logget ind som {user ? user.email : 'Indlæser...'}</p>
+
+
+      </div>
+      {/* Liked Estates */}
+      <div className={styles.mainContainer}>
       <div className={styles.likedEstatesList}>
-        <h3>Mine likede boliger</h3>
+        <h2>Mine favoritter</h2>
         {likedEstates.length > 0 ? (
           <ul>
             {likedEstates.map(estate => (
-              <li key={estate.id} className={styles.estateItem}>
-                <div>
-                  <Link to={`/boliger/${estate.id}`}>
-                    {estate.address}
-                  </Link>
-                </div>
-                <button onClick={() => handleUnlike(estate.id)} className={styles.button}>Fjern</button>
+              <li key={estate.id}>
+                 <button onClick={() => handleUnlike(estate.id)}>Fjern</button>
+                <Link to={`/boliger/${estate.id}`}>{estate.address}</Link>
+               
               </li>
             ))}
           </ul>
@@ -202,18 +125,21 @@ const MinSide = () => {
           <p>Du har ikke liket nogen boliger endnu.</p>
         )}
       </div>
+
+      {/* User Reviews */}
       <div className={styles.reviewsList}>
-        <h3>Mine anmeldelser</h3>
+        <h2>Mine anmeldelser</h2>
         {userReviews.length > 0 ? (
           <ul>
             {userReviews.map(review => (
-              <li key={review.id} className={styles.reviewItem}>
-                <div>
-                  <h4>{review.title}</h4>
-                  <p>{review.content}</p>
+              <li key={review.id}>
+                <h4>{review.title}</h4>
+                <p>{review.content}</p>
+                <p>Stjerner: {review.num_stars}</p>
+                <div  className={styles.reviewButtons}>
+                <button onClick={() => handleEditClick(review)}>Rediger</button>
+                <button onClick={() => handleDeleteClick(review.id)}>Slet</button>
                 </div>
-                <button onClick={() => handleEditClick(review)} className={styles.button}>Rediger</button>
-                <button onClick={() => handleDeleteClick(review.id)} className={styles.button}>Slet</button>
               </li>
             ))}
           </ul>
@@ -221,13 +147,50 @@ const MinSide = () => {
           <p>Du har ikke skrevet nogen anmeldelser endnu.</p>
         )}
       </div>
+      </div>
+      {/* Edit Review Form */}
       {isEditing && (
-        <div className={styles.editReview}>
+        <div className={styles.formContainer}>
+
+          <form  onSubmit={handleEditSubmit} className={styles.editForm}>
           <h3>Rediger anmeldelse</h3>
-          <form onSubmit={handleEditSubmit}>
-            <textarea value={editedReview} onChange={handleEditChange} />
-            <button type="submit" className={styles.button}>Gem</button>
-            <button type="button" onClick={() => setIsEditing(false)} className={styles.button}>Annuller</button>
+            <div>
+              <input
+                type="text"
+                name="title"
+                value={reviewData.title}
+                onChange={handleInputChange}
+                placeholder="Title"
+                required
+              />
+            </div>
+            <div>
+              <textarea
+                name="content"
+                value={reviewData.content}
+                onChange={handleInputChange}
+                placeholder="Anmeldelse"
+                required
+              />
+            </div>
+            <div>
+              <select
+                name="num_stars"
+                value={reviewData.num_stars}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="1">1 stjerne</option>
+                <option value="2">2 stjerner</option>
+                <option value="3">3 stjerner</option>
+                <option value="4">4 stjerner</option>
+                <option value="5">5 stjerner</option>
+              </select>
+            </div>
+            <div className={styles.reviewButtonsRE}>
+            <button type="submit">Gem</button>
+            <button type="button" onClick={() => setIsEditing(false)}>Annuller</button>
+            </div>
           </form>
         </div>
       )}

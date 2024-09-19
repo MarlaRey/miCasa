@@ -67,4 +67,8 @@ Jeg beslutter mig for at se om jeg kan gentage successen med den perfekte pause 
 
 Der er gået noget tabt fra dagens logs. øv. Det har ellers været en ineteressant dag. Jeg har til tider tænkt alt var tabt,at det var håbløst det hele og at jeg måtte starte forfra. Men nu sidder jeg her og har fået styr på alt muligt svært. Jege rstolt af at løse så mange af de tricky stylingsfeatures, der er nærmest ikke det jeg har måttet opgi! Selv udklaps formen viste sig at komme til at fungere, det er sgu bare en modal. og alt det der prolemværk med reload ved skivning i formen det gik også i sig selv da vi delte home op i flere komponent-dele. hurra!
 
-Imorgen skal jeg gøre forsiden responsiv, forhåentligt have held med en søgefunktion, få styr på ikonerne på details og de ting der skal vises ved klik på dem og en kontaktside. Og så skal der styles på min side. jeg håber jeg når det hele
+Imorgen skal jeg gøre forsiden responsiv, forhåentligt have held med en søgefunktion, få styr på ikonerne på details og de ting der skal vises ved klik på dem og en kontaktside. Og så skal der styles på min side. jeg håber jeg når det hele.
+
+Det er torsdag morgen. jeg har lige fået gjort forsiden responsiv og kan nu erklære den færdig. det er skønt, for det var jeg spændt på hvor drilsk det ville være med alle de importerede elemeter og absolut positionering her og der, men det gik lettere end forventet. Den slags oplevelser samler jeg på her på 2. sidste dag. Nu må det være tid til at få minside til at sidde lige i skabet.
+
+Det går godt idag. Jeg er godt med. Er dg lidt træt af de fimsede farver og synes ikke min "du er logget ind som..." -spiller oppe i headeren. Den irriterer mit øje, men jeg ved ikke hvordan jeg kan gøre det anderledes. Synes det er vigtigt at man kan lolgge ud hutigt uden at skulle ind på min side.
