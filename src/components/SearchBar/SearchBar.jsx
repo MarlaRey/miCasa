@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styles from './SearchBar.module.scss'; 
 
+// SearchBar-komponenten tager en onSearch-prop fra NavigationMenu som parameter
 const SearchBar = ({ onSearch }) => {
+    // useState hook til at holde styr på søgeordet
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {

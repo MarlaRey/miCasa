@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from './DropdownForm.module.scss'; // Importer din SCSS-stil her
-import supabase from '../../../supabase'; // Sørg for at have korrekt import af Supabase
+import styles from './DropdownForm.module.scss'; 
+import supabase from '../../../supabase';
 
 const DropdownForm = ({ user }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,10 +30,10 @@ const DropdownForm = ({ user }) => {
       .from('reviews')
       .insert([{
         user_id: user.id,
-        estate_id: null, // Juster baseret på din formular
+        estate_id: null, 
         title: 'New Review',
         content: reviewContent,
-        num_stars: 5, // Standard eller baseret på formularinput
+        num_stars: 5, 
         created_at: new Date().toISOString(),
         is_active: true
       }]);
@@ -43,7 +43,6 @@ const DropdownForm = ({ user }) => {
     } else {
       setIsVisible(false); // Skjul formularen efter indsending
       setIsNotLoggedIn(false); // Reset login prompt
-      // Optionelt, opdater visningen af anmeldelser her
     }
   };
 

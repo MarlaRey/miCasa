@@ -6,7 +6,7 @@ import EstateDetails from './pages/EstateDetails';
 import EstateList from './pages/EstateList';
 import Login from './pages/Login';
 import PageLayout from './components/PageLayout/PageLayout';
-import { AuthProvider } from './providers/AuthContext'; // Importér AuthProvider
+import { AuthProvider } from './providers/AuthContext'; // Importerer AuthProvider
 import MinSide from './pages/MinSide';
 import ContactPage from './pages/ContactPage';
 import MessageReceived from './pages/MessageReceived';

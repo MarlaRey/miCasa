@@ -1,63 +1,65 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import supabase from '../../supabase';
-import { AuthContext } from '../providers/AuthContext';
-import styles from './Login.module.scss';
+import React, { useState, useContext } from 'react'; // Importerer nødvendige hooks fra React
+import { useNavigate } from 'react-router-dom'; // Importerer hook til navigation
+import supabase from '../../supabase'; // Importerer Supabase-klienten til autentifikation
+import { AuthContext } from '../providers/AuthContext'; // Importerer kontekst for autentificering
+import styles from './Login.module.scss'; 
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
-  const { user, login, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const [email, setEmail] = useState(""); // Tilstand for login-email
+  const [password, setPassword] = useState(""); // Tilstand for login-password
+  const [registerEmail, setRegisterEmail] = useState(""); // Tilstand for registrerings-email
+  const [registerPassword, setRegisterPassword] = useState(""); // Tilstand for registrerings-password
+  const [error, setError] = useState(""); // Tilstand for fejlbeskeder
+  const [success, setSuccess] = useState(""); // Tilstand for succesbeskeder
+  const [isRegistering, setIsRegistering] = useState(false); // Tilstand for at skifte mellem login og registrering
+  const { user, login, logout } = useContext(AuthContext); // Henter brugeroplysninger og autentifikationsfunktioner fra AuthContext
+  const navigate = useNavigate(); // Hook til navigation
 
+  // Funktion til at håndtere login
   const handleLogin = async (event) => {
-    event.preventDefault();
-    const { user, error } = await login(email, password);
+    event.preventDefault(); // Forhindrer standard formularindsendelse
+    const { user, error } = await login(email, password); // Kalder login-funktionen
     if (user) {
-      setSuccess("Du er logget ind.");
-      setEmail("");
-      setPassword("");
-      navigate('/minside');
+      setSuccess("Du er logget ind."); // Sætter succesbesked
+      setEmail(""); // Nulstiller email-feltet
+      setPassword(""); // Nulstiller password-feltet
+      navigate('/minside'); // Navigerer til 'minside' efter login
     } else {
-      setError(error ? error.message : "Login mislykkedes.");
+      setError(error ? error.message : "Login mislykkedes."); // Håndterer fejl
     }
     setTimeout(() => {
-      setError("");
-      setSuccess("");
-    }, 3000); // Timeout for succes- og fejlbeskeder
+      setError(""); // Nulstiller fejlbesked efter 3 sekunder
+      setSuccess(""); // Nulstiller succesbesked efter 3 sekunder
+    }, 3000);
   };
 
+  // Funktion til at håndtere registrering
   const handleRegister = async (event) => {
-    event.preventDefault();
-    const { error } = await supabase.auth.signUp({ email: registerEmail, password: registerPassword });
+    event.preventDefault(); // Forhindrer standard formularindsendelse
+    const { error } = await supabase.auth.signUp({ email: registerEmail, password: registerPassword }); // Kalder Supabase signUp
     if (error) {
-      setError(error.message);
+      setError(error.message); // Sætter fejlbesked ved fejl
       setSuccess("");
     } else {
-      setSuccess("Super, du er oprettet. Du kan nu logge ind.");
-      setEmail(registerEmail); // Overfør registreret email til login-feltet
-      setRegisterEmail("");
-      setRegisterPassword("");
-      setIsRegistering(false); // Skift til login-form med det samme
+      setSuccess("Super, du er oprettet. Du kan nu logge ind."); // Sætter succesbesked ved succes
+      setEmail(registerEmail); // Overfører registreret email til login-feltet
+      setRegisterEmail(""); // Nulstiller registrerings-email
+      setRegisterPassword(""); // Nulstiller registrerings-password
+      setIsRegistering(false); // Skifter til login-form
     }
     setTimeout(() => {
-      setError("");
-      setSuccess("");
-    }, 3000); // Timeout for succes- og fejlbeskeder
+      setError(""); // Nulstiller fejlbesked efter 3 sekunder
+      setSuccess(""); // Nulstiller succesbesked efter 3 sekunder
+    }, 3000);
   };
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.loginContainer}>
-        {error && <p className={styles.error}>{error}</p>}
-        {success && <p className={styles.success}>{success}</p>}
+        {error && <p className={styles.error}>{error}</p>} {/* Viser fejlbesked hvis der er en */}
+        {success && <p className={styles.success}>{success}</p>} {/* Viser succesbesked hvis der er en */}
         
-        {!isRegistering ? (
+        {!isRegistering ? ( // Viser login-form hvis ikke i registreringstilstand
           <form className={styles.form} onSubmit={handleLogin}>
             <p className={styles.infoText}>Indtast email og password for at logge ind.</p>
             <div className={styles.formGroup}>
@@ -66,7 +68,7 @@ const Login = () => {
                 type="email"
                 className={styles.input}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)} // Opdaterer email-tilstand
                 required
               />
             </div>
@@ -76,7 +78,7 @@ const Login = () => {
                 type="password"
                 className={styles.input}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)} // Opdaterer password-tilstand
                 required
               />
             </div>
@@ -84,12 +86,12 @@ const Login = () => {
             <button
               type="button"
               className={`${styles.button} ${styles.registerButton}`}
-              onClick={() => setIsRegistering(true)}
+              onClick={() => setIsRegistering(true)} // Skifter til registreringstilstand
             >
               Opret bruger
             </button>
           </form>
-        ) : (
+        ) : ( // Viser registreringsform hvis i registreringstilstand
           <form className={styles.form} onSubmit={handleRegister}>
             <p className={styles.infoText}>Opret dig som bruger her</p>
             <div className={styles.formGroup}>
@@ -98,7 +100,7 @@ const Login = () => {
                 type="email"
                 className={styles.input}
                 value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
+                onChange={(e) => setRegisterEmail(e.target.value)} // Opdaterer registrerings-email-tilstand
                 required
               />
             </div>
@@ -108,15 +110,15 @@ const Login = () => {
                 type="password"
                 className={styles.input}
                 value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)}
+                onChange={(e) => setRegisterPassword(e.target.value)} // Opdaterer registrerings-password-tilstand
                 required
               />
             </div>
-            <button type="submit" className={styles.button} >Opret</button>
+            <button type="submit" className={styles.button}>Opret</button>
             <button
               type="button"
               className={styles.button}
-              onClick={() => setIsRegistering(false)}
+              onClick={() => setIsRegistering(false)} // Skifter tilbage til login
             >
               Tilbage til login
             </button>

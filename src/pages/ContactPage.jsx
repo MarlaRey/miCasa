@@ -4,6 +4,7 @@ import supabase from '../../supabase';
 import styles from './ContactPage.module.scss';
 
 const ContactPage = () => {
+   // State til at gemme medarbejdere og formulardata
   const [employees, setEmployees] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -11,33 +12,33 @@ const ContactPage = () => {
     employee: '',
     message: '',
   });
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook til navigering
 
-  // Henter medarbejdere fra Supabase (til select-feltet)
+  // Henter medarbejdere fra Supabase (til select-feltet) når komponenten mountes
   useEffect(() => {
     const fetchEmployees = async () => {
       const { data: employees, error } = await supabase.from('employees').select('id, firstname');
       if (!error) {
-        setEmployees(employees);
+        setEmployees(employees); // Opdaterer state med hentede medarbejdere
       } else {
         console.error('Fejl ved hentning af medarbejdere:', error);
       }
     };
     fetchEmployees();
-  }, []);
+  }, []); //tomt dependency array sikrer, at den kun kører én gang ved mount
 
   // Håndterer formularinput
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Destrukturering af event-objektet
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value, // Opdaterer det specifikke felt i formData
     }));
   };
 
   // Håndterer indsendelse af formular
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();// Forhindrer standardformularindsendelse
 
     const { name, email, employee, message } = formData;
     if (!name || !email || !employee || !message) {

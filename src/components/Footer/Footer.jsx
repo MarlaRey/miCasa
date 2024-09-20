@@ -1,14 +1,14 @@
-// src/components/Footer/Footer.js
 import React, { useState } from 'react';
 import styles from './Footer.module.scss';
 import supabase from '../../../supabase';
 import logo from '../../assets/img/Logo.png';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import af Link-komponenten til navigation
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  // useState hooks til at håndtere input, fejl og succesmeddelelser
+  const [email, setEmail] = useState('');// email indeholder den indtastede email fra brugeren
+  const [error, setError] = useState('');// error holder eventuelle fejlmeddelelser ved validering eller databasefejl
+  const [success, setSuccess] = useState('');// success holder succesmeddelelser når emailen er indsat i databasen
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,15 +22,15 @@ const Footer = () => {
     try {
       const { error } = await supabase
         .from('newsletter_emails')
-        .insert([{ email }]);
+        .insert([{ email }]); // Opretter en ny række med emailen i supabase
 
       if (error) throw error;
-
+      // Hvis indtastning lykkedes, nulstilles email og fejlmeddelelse
       setSuccess('Dejligt du vil følge med! Du vil nu modtage vores nyhedsbreve');
       setEmail('');
       setError('');
 
-      // Hide success message after 3 seconds
+      // Hide message after 5 seconds
       setTimeout(() => {
         setSuccess('');
       }, 5000);

@@ -3,7 +3,6 @@ import { AuthContext } from '../../providers/AuthContext';
 import supabase from '../../../supabase';
 import styles from './LikeButton.module.scss';
 
-// Importer dine egne ikoner
 import heartEmpty from '../../assets/img/icons/heartVec.png'; // Tomt hjerte
 import heartFull from '../../assets/img/icons/heartFullVec.png'; // Fyldt hjerte
 
@@ -46,7 +45,7 @@ const LikeButton = ({ estateId }) => {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (isLiked) {
-      // Hvis boligen allerede er liket, fjerner vi den fra favoritter
+      // Hvis boligen allerede er liket, fungerer klikket som et unlike og vi fjerner detfra favoritter
       const { error } = await supabase
         .from('favorites')
         .delete()

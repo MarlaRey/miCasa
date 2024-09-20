@@ -1,19 +1,26 @@
-import React, { useCallback } from 'react';
+import React, { useCallback } from 'react'; //useCallback-hooket i React bruges til at cache en funktion og kun genoprette den, når dens afhængigheder ændrer sig. 
 import styles from './FormModal.module.scss';
 
+// FormModal-komponenten modtager flere props: isVisible, onClose, onSubmit, reviewData, og setReviewData
 const FormModal = ({ isVisible, onClose, onSubmit, reviewData, setReviewData }) => {
+  
+  // Hvis modalet ikke er synligt (isVisible er falsk), returnerer funktionen null og viser ikke modalet
   if (!isVisible) return null;
 
+  // Funktion til at håndtere ændringer i inputfelter
+  // Den opdaterer reviewData state ved hjælp af setReviewData, baseret på feltets navn og værdi
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
+    // Brug setReviewData til at opdatere det specifikke inputfelt i reviewData
     setReviewData((prev) => ({ ...prev, [name]: value }));
   }, [setReviewData]);
 
+  // Funktion til at håndtere form-indsendelse
+  // Forhindrer sideopdatering (default form submit behavior) og kalder onSubmit-proppen
   const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    onSubmit(e);
+    e.preventDefault(); // Forhindrer standard submit-handling
+    onSubmit(e); // Kalder den onSubmit funktion, der blev givet som prop
   }, [onSubmit]);
-
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>

@@ -6,7 +6,7 @@ import useFetchEstates from '../components/Fetches/useFetchEstates'; // Custom h
 
 const SearchResultsPage = () => {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  const queryParams = new URLSearchParams(location.search); //Dette opretter et objekt, der gør det muligt at hente søgeparametre fra URL'en.
   const searchQuery = queryParams.get('query') || ''; // Hent søgeordet fra URL'en
 
   const { estates, loading, error } = useFetchEstates(); // Kald custom hook korrekt

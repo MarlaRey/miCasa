@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../../../supabase';
-import styles from './EmployeeSection.module.scss'; // Importér din SCSS-fil
-
+import styles from './EmployeeSection.module.scss'; 
 const EmployeeSection = () => {
   const [employees, setEmployees] = useState([]);
 

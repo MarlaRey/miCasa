@@ -18,14 +18,12 @@ const BurgerMenu = () => {
 
   return (
     <div className={styles.burgerMenu}>
-      {/* Ikon der skifter mellem tre linjer og et X */}
       <div className={styles.icon} onClick={toggleMenu}>
         <span className={`${styles.line} ${isMenuOpen ? styles.open : ''}`}></span>
         <span className={`${styles.line} ${isMenuOpen ? styles.open : ''}`}></span>
         <span className={`${styles.line} ${isMenuOpen ? styles.open : ''}`}></span>
       </div>
 
-      {/* Menuen som folder sig ud */}
       {isMenuOpen && (
         <nav className={styles.menu}>
           <ul>

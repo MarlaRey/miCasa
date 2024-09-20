@@ -15,7 +15,7 @@ const EstateSection = ({ limit = 3, sortOption = 'created_at', filterType = '' }
   const displayEstates = estates.sort(() => 0.5 - Math.random()).slice(0, limit); 
 
   return (
-    <section className={styles.section}> {/* Wrapper-sektion med styling */}
+    <section className={styles.section}> 
       {displayEstates.map((estate) => (
         <EstateCard key={estate.id} estate={estate} isHome={true} />
       ))}
